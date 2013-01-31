@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
@@ -21,6 +20,7 @@ public class Remote implements Runnable {
 	Component trottle = null;
 	Component yaw = null;
 	Component pitch = null;
+	Component start = null;
 
 	public Remote() {
 		Controller[] ca = ControllerEnvironment.getDefaultEnvironment()
@@ -55,14 +55,18 @@ public class Remote implements Runnable {
 						if (components[j].getIdentifier() == Identifier.Axis.X) {
 							roll = components[j];
 						} else if (components[j].getIdentifier() == Identifier.Axis.Y) {
-							trottle = components[j];
-						} else if (components[j].getIdentifier() == Identifier.Axis.Z) {
-							yaw = components[j];
-						} else if (components[j].getIdentifier() == Identifier.Axis.RZ) {
 							pitch = components[j];
+						} else if (components[j].getIdentifier() == Identifier.Axis.SLIDER) {
+							trottle = components[j];
+						} else if (components[j].getIdentifier() == Identifier.Axis.RZ) {
+							yaw = components[j];
 						}
 					} else {
 						System.out.print(" Digital");
+						if (components[j].getIdentifier() == Identifier.Button.BASE) {
+							start = components[j];
+						}
+
 					}
 					System.out.println();
 				}
@@ -78,16 +82,31 @@ public class Remote implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		float t = -1;
+		float r = -1;
+		float p = -1;
+		float y = -1;
+		float s = -1;
+
 		while (true) {
 			joystick.poll();
+			if ((t != trottle.getPollData()) || (r != roll.getPollData())
+					|| (p != pitch.getPollData()) || (y != yaw.getPollData())
+					|| (s != start.getPollData())) {
+				t=trottle.getPollData();
+				r=roll.getPollData();
+				p=pitch.getPollData();
+				y=yaw.getPollData();
+				s=start.getPollData();
+				for (RemoteListener listener : listeners) {
+					try {
+						listener.changed(trottle.getPollData(),
+								roll.getPollData(), pitch.getPollData(),
+								yaw.getPollData(), start.getPollData());
 
-			for (RemoteListener listener : listeners) {
-				try {
-					System.out.println(yaw.getPollData());
-					listener.changed(trottle.getPollData(),roll.getPollData(),
-							pitch.getPollData(),yaw.getPollData(), 0);
-				} catch (Exception e) {
+					} catch (Exception e) {
 
+					}
 				}
 			}
 
@@ -111,9 +130,10 @@ public class Remote implements Runnable {
 		frame.setLayout(new BorderLayout());
 		frame.add(panel);
 		remote.addRemoteListener(panel);
-		frame.setBounds(100, 100, 800, 500);
+		frame.setBounds(100, 100, 300, 300);
 		final Thread thread = new Thread(remote);
 		thread.start();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 
