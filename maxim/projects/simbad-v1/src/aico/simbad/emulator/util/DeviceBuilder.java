@@ -4,7 +4,6 @@ import javax.vecmath.Vector3d;
 
 import aico.simbad.emulator.robot.Robot;
 
-import simbad.sim.Agent;
 import simbad.sim.RangeSensorBelt;
 import simbad.sim.RobotFactory;
 

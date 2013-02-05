@@ -1,5 +1,4 @@
 package aico.simbad.emulator.launcher;
-import java.awt.PopupMenu;
 
 import aico.simbad.emulator.environment.Environment;
 import simbad.gui.Simbad;

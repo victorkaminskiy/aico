@@ -5,17 +5,17 @@ import java.awt.image.BufferedImage;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
+import aico.simbad.emulator.util.AicoAgent;
 import aico.simbad.emulator.util.Constants;
 import aico.simbad.emulator.util.DataBlock;
 import aico.simbad.emulator.util.DeviceBuilder;
 
-import simbad.sim.Agent;
 import simbad.sim.CameraSensor;
 import simbad.sim.RangeSensorBelt;
 import simbad.sim.RobotFactory;
 import simbad.sim.SensorDevice;
 
-public class Robot extends Agent {
+public class Robot extends AicoAgent {
 	
 	final NavAlgo navalgo;
 
@@ -68,10 +68,10 @@ public class Robot extends Agent {
 	private void performMovement(EngineActions action) {
 		switch (action) {
 		case MOVE_FORWARD:
-			setTranslationalVelocity(Constants.TRANSLATION_VELOCITY);
+			setAicoTranslationalVelocity(Constants.TRANSLATION_VELOCITY);
 			break;
 		case MOVE_BACKWARD:
-			setTranslationalVelocity(-Constants.TRANSLATION_VELOCITY);
+			setAicoTranslationalVelocity(-Constants.TRANSLATION_VELOCITY);
 			break;
 		case MOVE_LEFT:
 			// TODO Move left not realized
@@ -80,16 +80,16 @@ public class Robot extends Agent {
 			// TODO Move right not realized
 			break;
 		case MOVE_STOP:
-			setTranslationalVelocity(0);
+			setAicoTranslationalVelocity(0);
 			break;
 		case ROTATE_LEFT:
-			setRotationalVelocity(Constants.ROTATION_VELOCITY);
+			setAicoRotationalVelocity(Constants.ROTATION_VELOCITY);
 			break;
 		case ROTATE_RIGHT:
-			setRotationalVelocity(-Constants.ROTATION_VELOCITY);
+			setAicoRotationalVelocity(-Constants.ROTATION_VELOCITY);
 			break;
 		case ROTATE_STOP:
-			setRotationalVelocity(0);
+			setAicoRotationalVelocity(0);
 			break;
 		default:
 			break;
