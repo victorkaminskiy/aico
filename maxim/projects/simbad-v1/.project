@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>ext</name>
-			<type>2</type>
-			<location>C:/Program Files/Java/Java3D/1.5.1/lib/ext</location>
-		</link>
-	</linkedResources>
 </projectDescription>

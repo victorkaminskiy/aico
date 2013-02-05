@@ -74,10 +74,10 @@ public class Robot extends AicoAgent {
 			setAicoTranslationalVelocity(-Constants.TRANSLATION_VELOCITY);
 			break;
 		case MOVE_LEFT:
-			// TODO Move left not realized
+			setAicoShiftVelocity(-Constants.TRANSLATION_VELOCITY);
 			break;
 		case MOVE_RIGHT:
-			// TODO Move right not realized
+			setAicoShiftVelocity(Constants.TRANSLATION_VELOCITY);
 			break;
 		case MOVE_STOP:
 			setAicoTranslationalVelocity(0);
