@@ -2,9 +2,14 @@ package aico;
 
 import java.awt.image.BufferedImage;
 
-import simbad.gui.Simbad;
-import simbad.sim.*;
 import javax.vecmath.Vector3d;
+
+import simbad.gui.Simbad;
+import simbad.sim.Agent;
+import simbad.sim.CameraSensor;
+import simbad.sim.CopterKinematicModel;
+import simbad.sim.RangeSensorBelt;
+import simbad.sim.RobotFactory;
 
 /**
  * It can move only in 4 directions at one moment: NORTH, SOUTH, EAST, WEST. It
@@ -15,22 +20,26 @@ import javax.vecmath.Vector3d;
  * 
  */
 public class WallGoerAico extends Agent {
+	private CopterKinematicModel km = new CopterKinematicModel();
 	private static final float SENSOR_RANGE_DISTANCE = 10;
-	private static final double NORTH_DIRECTION = 0;
-	private static final double EAST_DIRECTION = Math.PI / 2;
-	private static final double SOUTH_DIRECTION = Math.PI;
-	private static final double WEST_DIRECTION = Math.PI * 3 / 4;
+	private final static double SPEED = 1;
+	private final static double STOP = 0;
+	private final static double EAST = 1 * SPEED;
+	private final static double NORTH = 1 * SPEED;
+	private final static double UP = 1 * SPEED;
+	private final static double WEST = -1 * SPEED;
+	private final static double SOUTH = -1 * SPEED;
+	private final static double DOWN = -1 * SPEED;
 
 	enum State {
-		Thinks, //
 		MovesNorth, //
 		MovesEast, //
 		MovesSouth, //
 		MovesWest, //
 		GetsSmallestDistanceToAWall, //
+		Stop, //
 	}
 
-	private double speed = 1;
 	private State state = null;
 	private final RangeSensorBelt sonars;
 	private final CameraSensor camera;
@@ -38,6 +47,7 @@ public class WallGoerAico extends Agent {
 
 	public WallGoerAico(Vector3d position, String name) {
 		super(position, name);
+		setKinematicModel(km);
 		sonars = RobotFactory.addSonarBeltSensor(this, 4, 0,
 				SENSOR_RANGE_DISTANCE);
 		// add a camera on top of the robot
@@ -47,7 +57,7 @@ public class WallGoerAico extends Agent {
 	}
 
 	public void initBehavior() {
-		state = State.Thinks;
+		state = null;
 	}
 
 	public void performBehavior() {
@@ -57,25 +67,28 @@ public class WallGoerAico extends Agent {
 			return;
 		}
 
-		switch (state) {
-		case Thinks:
-			state = State.MovesWest;
-		case MovesNorth:
-			move(NORTH_DIRECTION);
-			break;
-		case MovesEast:
-			move(EAST_DIRECTION);
-			break;
-		case MovesSouth:
-			move(SOUTH_DIRECTION);
-			break;
-		case MovesWest:
-			move(WEST_DIRECTION);
-			break;
-		case GetsSmallestDistanceToAWall:
-			break;
+		makeDesicion();
 
-		}
+		km.setTranslationalVelocity(STOP);
+		km.setStrafeVelocity(WEST);
+		km.setFloatUpVelocity(UP);
+		km.setRotationalVelocity(Math.PI / 2);
+
+		// switch (state) {
+		// case MovesNorth:
+		// break;
+		// case MovesEast:
+		// break;
+		// case MovesSouth:
+		// break;
+		// case MovesWest:
+		// break;
+		// case GetsSmallestDistanceToAWall:
+		// break;
+		// case Stop:
+		// setTranslationalVelocity(0);
+		// break;
+		// }
 
 		// Get last info from sensors about the world around
 		if (getCounter() % 20 == 0) {
@@ -94,7 +107,6 @@ public class WallGoerAico extends Agent {
 		// setRotationalVelocity(Math.PI / 2 * (0.5 - Math.random()));
 
 		// Make next movement.
-		setTranslationalVelocity(1);
 
 		// // every 20 frames - bumper
 		// if (getCounter() % 20 == 0) {
@@ -112,16 +124,13 @@ public class WallGoerAico extends Agent {
 		// ... use BufferedImage api
 	}
 
-	private void move(double direction) {
-		setRotationalVelocity(direction);
-		setTranslationalVelocity(speed);
-		setRotationalVelocity(NORTH_DIRECTION);
+	private void makeDesicion() {
+		state = State.MovesWest;
 	}
 
 	private boolean isDead() {
 		if (collisionDetected()) {
-			setTranslationalVelocity(0.0);
-			setRotationalVelocity(0);
+			km.reset();
 			return true;
 		}
 		return false;
