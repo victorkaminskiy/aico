@@ -1,9 +1,16 @@
 package aico;
 
+import java.awt.Color;
+
+import javax.vecmath.Color3f;
+import javax.vecmath.Vector2d;
 import javax.vecmath.Vector3d;
 
+import simbad.sim.Arch;
 import simbad.sim.EnvironmentDescription;
+import simbad.sim.StartOrFinishTarget;
 import simbad.sim.Wall;
+import simbad.sim.WallCylinder;
 
 public class Labirinth extends EnvironmentDescription {
 	private static final float WALL_HEIGHT = 3;
@@ -70,7 +77,19 @@ public class Labirinth extends EnvironmentDescription {
 		w.rotate90(1);
 		add(w);
 
-		add(new WallGoerAico(new Vector3d(-1 * (LAB_LENGTH / 3), 2.5, -1
+		StartOrFinishTarget start = new StartOrFinishTarget(new Vector2d(-1
+				* (LAB_LENGTH / 3), -1 * (LAB_WIDTH / 4)), (float) 1.5,
+				(float) 0.1, new Color3f(Color.black),
+				new Color3f(Color.white), this);
+		add(start);
+
+		StartOrFinishTarget finish = new StartOrFinishTarget(new Vector2d(
+				-1 * (LAB_LENGTH / 3), 1 * (LAB_WIDTH / 4)), (float) 1.5,
+				(float) 0.1, new Color3f(Color.white),
+				new Color3f(Color.black), this);
+		add(finish);
+
+		add(new WallGoerAico(new Vector3d(-1 * (LAB_LENGTH / 3), 0.1, -1
 				* (LAB_WIDTH / 4)), "Aico Robot"));
 	}
 }

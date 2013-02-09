@@ -6,8 +6,8 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AICo simulator/libs/java3d"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/java3d/j3dutils.jar"/>
-	<classpathentry kind="lib" path="libs/java3d/vecmath.jar"/>
+	<classpathentry kind="lib" path="libs/java3d/j3dutils.jar" sourcepath="libs/java3d/j3d-1_5_2-src.zip"/>
+	<classpathentry kind="lib" path="libs/java3d/vecmath.jar" sourcepath="libs/java3d/vecmath-1_5_2-src.zip"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
