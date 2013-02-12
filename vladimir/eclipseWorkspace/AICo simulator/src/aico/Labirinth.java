@@ -89,7 +89,7 @@ public class Labirinth extends EnvironmentDescription {
 				new Color3f(Color.black), this);
 		add(finish);
 
-		add(new WallGoerAico(new Vector3d(-1 * (LAB_LENGTH / 3), 0.1, -1
+		add(new WallGoerAico(new Vector3d(-1 * (LAB_LENGTH / 3), 1, -1
 				* (LAB_WIDTH / 4)), "Aico Robot"));
 	}
 }

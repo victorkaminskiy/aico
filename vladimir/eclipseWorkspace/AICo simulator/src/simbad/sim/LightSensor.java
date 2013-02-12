@@ -44,7 +44,7 @@ public class LightSensor extends Eye {
     float luminance;
 
     public LightSensor() {
-       super(0.5f, 10, 10);
+       super(0.5f, 10, 10, 0);
        // super(0.5f, 50, 50);
          luminance = 0;
          rotateY(Math.PI);

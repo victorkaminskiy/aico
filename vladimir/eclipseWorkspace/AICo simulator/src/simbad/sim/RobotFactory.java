@@ -46,8 +46,26 @@ public class RobotFactory extends Factory {
     static public CameraSensor addCameraSensor(Agent agent) {
         double agentHeight = agent.getHeight();
         float cameraBodyRadius = 0.1f;
-        CameraSensor camera = new CameraSensor(cameraBodyRadius, 100, 100);
-        camera.setUpdatePerSecond(3);
+        CameraSensor camera = new CameraSensor(cameraBodyRadius, 100, 100, 0);
+        camera.setUpdatePerSecond(10);
+        camera.setName("Camera");
+        Vector3d pos = new Vector3d(0.0, (agentHeight / 2)
+                + (cameraBodyRadius * 3) / 4, 0);
+        agent.addSensorDevice(camera, pos, 0);
+        return camera;
+    }
+    
+    /**
+     * Adds a prebuild camera sensor to the agent. Image resolution is 100x100 pixels.
+     * Camera is situated on the top of the agent.
+     * @param agent
+     * @return the sensor object
+     */
+    static public CameraSensor addBottomCameraSensor(Agent agent) {
+        double agentHeight = agent.getHeight();
+        float cameraBodyRadius = 0.1f;
+        CameraSensor camera = new CameraSensor(cameraBodyRadius, 100, 100, (float) (-Math.PI/2));
+        camera.setUpdatePerSecond(10);
         camera.setName("Camera");
         Vector3d pos = new Vector3d(0.0, (agentHeight / 2)
                 + (cameraBodyRadius * 3) / 4, 0);

@@ -71,6 +71,7 @@ public class Eye extends SensorDevice {
     
     protected int imageWidth ;
     protected int imageHeight;
+	private float xRotate;
     
 
     /*
@@ -102,7 +103,6 @@ public class Eye extends SensorDevice {
     private class OffScreenCanvas3D extends Canvas3D {
 
 		private static final long serialVersionUID = 1L;
-		boolean rendering;
    
         public OffScreenCanvas3D(GraphicsConfiguration gconfig) {
             super(gconfig, true);
@@ -110,8 +110,6 @@ public class Eye extends SensorDevice {
                     ImageComponent.FORMAT_RGB, visionImage);
             buffer.setCapability(ImageComponent2D.ALLOW_IMAGE_READ);
             setOffScreenBuffer(buffer);
-            rendering = false;
-            
         }
 
         synchronized void render() {
@@ -131,13 +129,13 @@ public class Eye extends SensorDevice {
             // copy rendered image 
              BufferedImage bim = getOffScreenBuffer().getImage();
              visionImage.setData(bim.getData());
-            rendering = false;
         }
     }
 
-    Eye(float radius,int imageWidth,int imageHeight  ) {
+    Eye(float radius,int imageWidth,int imageHeight, float xRotate ) {
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
+        this.xRotate = xRotate;
        // BufferedImage bim = new BufferedImage(imageWidth, imageHeight,
        //         BufferedImage.TYPE_INT_RGB);
         visionImage = new BufferedImage(imageWidth, imageHeight,
@@ -165,7 +163,7 @@ public class Eye extends SensorDevice {
     void createViewPlatform(){
         // viewplatform
         viewPlatform = new ViewPlatform();
-        viewPlatform.setActivationRadius(100f);
+        viewPlatform.setActivationRadius(100);
         viewPlatform.setViewAttachPolicy(View.NOMINAL_HEAD);
         // view
         view = new View();
@@ -200,6 +198,7 @@ public class Eye extends SensorDevice {
         addChild(viewPlatform);
         // turn canvas in front of X axis  
         rotateY(-Math.PI/2);
+        rotateX(xRotate);
     }
 
     

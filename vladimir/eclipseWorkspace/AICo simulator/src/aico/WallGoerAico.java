@@ -51,7 +51,7 @@ public class WallGoerAico extends Agent {
 		sonars = RobotFactory.addSonarBeltSensor(this, 4, 0,
 				SENSOR_RANGE_DISTANCE);
 		// add a camera on top of the robot
-		camera = RobotFactory.addCameraSensor(this);
+		camera = RobotFactory.addBottomCameraSensor(this);
 		// reserve space for image capture
 		cameraImage = camera.createCompatibleImage();
 	}
@@ -70,9 +70,9 @@ public class WallGoerAico extends Agent {
 		makeDesicion();
 
 		km.setTranslationalVelocity(STOP);
-		km.setStrafeVelocity(WEST);
+		km.setStrafeVelocity(STOP);
 		km.setFloatUpVelocity(UP);
-		km.setRotationalVelocity(Math.PI / 2);
+		km.setRotationalVelocity(Math.PI / 10);
 
 		// switch (state) {
 		// case MovesNorth:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="libs/java3d/j3dcore.jar">
+	<classpathentry kind="lib" path="libs/java3d/j3dcore.jar" sourcepath="libs/java3d/j3d-1_5_2-src.zip">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AICo simulator/libs/java3d"/>
 		</attributes>
