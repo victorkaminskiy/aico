@@ -1,8 +1,18 @@
 package aico;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.vecmath.Vector3d;
+
+import aico.steps.Step;
+import aico.steps.StepGoNorthUntilOfTheEndOfLine;
+import aico.steps.StepGoSouthUntilOfTheEndOfLine;
+import aico.steps.StepGoToEastWall;
+import aico.steps.StepLiftUp;
+import aico.steps.StepSearchForTheHole;
+import aico.steps.StepTwoMetersToEast;
 
 import simbad.gui.Simbad;
 import simbad.sim.Agent;
@@ -22,28 +32,12 @@ import simbad.sim.RobotFactory;
 public class WallGoerAico extends Agent {
 	private CopterKinematicModel km = new CopterKinematicModel();
 	private static final float SENSOR_RANGE_DISTANCE = 10;
-	private final static double SPEED = 1;
-	private final static double STOP = 0;
-	private final static double EAST = 1 * SPEED;
-	private final static double NORTH = 1 * SPEED;
-	private final static double UP = 1 * SPEED;
-	private final static double WEST = -1 * SPEED;
-	private final static double SOUTH = -1 * SPEED;
-	private final static double DOWN = -1 * SPEED;
 
-	enum State {
-		MovesNorth, //
-		MovesEast, //
-		MovesSouth, //
-		MovesWest, //
-		GetsSmallestDistanceToAWall, //
-		Stop, //
-	}
-
-	private State state = null;
 	private final RangeSensorBelt sonars;
 	private final CameraSensor camera;
 	private final BufferedImage cameraImage;
+
+	private List<Step> steps = new ArrayList<Step>();
 
 	public WallGoerAico(Vector3d position, String name) {
 		super(position, name);
@@ -54,78 +48,55 @@ public class WallGoerAico extends Agent {
 		camera = RobotFactory.addBottomCameraSensor(this);
 		// reserve space for image capture
 		cameraImage = camera.createCompatibleImage();
-	}
 
-	public void initBehavior() {
-		state = null;
+		steps.add(new StepLiftUp(this));
+		steps.add(new StepGoToEastWall(this));
+		steps.add(new StepGoNorthUntilOfTheEndOfLine(this));
+		steps.add(new StepTwoMetersToEast(this));
+		steps.add(new StepGoSouthUntilOfTheEndOfLine(this));
+		steps.add(new StepSearchForTheHole(this));
+		steps.add(new StepGoSouthUntilOfTheEndOfLine(this));
+
+		// steps.add(new StepGoToFinish(this));
 	}
 
 	public void performBehavior() {
+		// if (getCounter() % 50 == 0) {
+		// // print each sonars measurement
+		// for (int i = 0; i < sonars.getNumSensors(); i++) {
+		// double range = sonars.getMeasurement(i);
+		// double angle = sonars.getSensorAngle(i);
+		// System.out.println("sensor " + i + ": angle - " + angle
+		// + ", range - " + range);
+		// }
+		// }
+
 		camera.copyVisionImage(cameraImage);
 		if (isDead()) {
 			System.err.println("AICO broken...");
 			return;
 		}
 
-		makeDesicion();
-
-		km.setTranslationalVelocity(STOP);
-		km.setStrafeVelocity(STOP);
-		km.setFloatUpVelocity(UP);
-		km.setRotationalVelocity(Math.PI / 10);
-
-		// switch (state) {
-		// case MovesNorth:
-		// break;
-		// case MovesEast:
-		// break;
-		// case MovesSouth:
-		// break;
-		// case MovesWest:
-		// break;
-		// case GetsSmallestDistanceToAWall:
-		// break;
-		// case Stop:
-		// setTranslationalVelocity(0);
-		// break;
-		// }
-
-		// Get last info from sensors about the world around
-		if (getCounter() % 20 == 0) {
-			// print each sonars measurement
-			for (int i = 0; i < sonars.getNumSensors(); i++) {
-				double range = sonars.getMeasurement(i);
-				double angle = sonars.getSensorAngle(i);
-				boolean hit = sonars.hasHit(i);
-				System.out.println("sensor " + i + ": angle - " + angle
-						+ ", range - " + range);
+		boolean inStep = false;
+		Step step = null;
+		if (inStep = !steps.isEmpty()) {
+			step = steps.get(0);
+			inStep = !step.isFinished();
+			if (inStep) {
+				step.perform();
+			} else {
+				System.out.println(inStep + " " + getCounter());
+				steps.remove(0);
 			}
+		} else {
+			System.out.print("Mission completed");
 		}
-
-		// Choose direction
-		// if ((getCounter() % 100) == 0)
-		// setRotationalVelocity(Math.PI / 2 * (0.5 - Math.random()));
-
-		// Make next movement.
-
-		// // every 20 frames - bumper
-		// if (getCounter() % 20 == 0) {
-		// // print each bumper state
-		// for (int i = 0; i < bumpers.getNumSensors(); i++) {
-		// double angle = bumpers.getSensorAngle(i);
-		// boolean hit = bumpers.hasHit(i);
-		// System.out.println("Bumpers at angle " + angle
-		// + " has hit something:" + hit);
-		// }
-		// }
-
-		// get camera image
-		// process image
-		// ... use BufferedImage api
-	}
-
-	private void makeDesicion() {
-		state = State.MovesWest;
+		if (!inStep) {
+			km.setTranslationalVelocity(Step.STOP);
+			km.setRotationalVelocity(Step.STOP);
+			km.setStrafeVelocity(Step.STOP);
+			km.setFloatUpVelocity(Step.STOP);
+		}
 	}
 
 	private boolean isDead() {
@@ -137,6 +108,14 @@ public class WallGoerAico extends Agent {
 	}
 
 	public static void main(String[] args) {
-		final Simbad frame = new Simbad(new Labirinth(), false);
+		new Simbad(new Labirinth(), false);
+	}
+
+	public CopterKinematicModel getKm() {
+		return km;
+	}
+
+	public RangeSensorBelt getSonars() {
+		return sonars;
 	}
 }
