@@ -43,11 +43,11 @@ public class AicoKinematicModel extends KinematicModel {
 	 * @param instantRotation
 	 *            to store rotation
 	 */
-
 	protected void update(double elapsedSecond, Transform3D rotation,
 			Vector3d instantTranslation, Vector3d instantRotation) {
 
-		instantTranslation.set(translationalVelocity * elapsedSecond, 0.0, shiftVelocity * elapsedSecond);
+		instantTranslation.set(translationalVelocity * elapsedSecond, 0.0,
+				shiftVelocity * elapsedSecond);
 		// apply current rotation (on y axis)
 		rotation.transform(instantTranslation);
 

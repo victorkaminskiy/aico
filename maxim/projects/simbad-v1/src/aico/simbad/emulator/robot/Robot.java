@@ -8,7 +8,7 @@ import javax.vecmath.Vector3d;
 import aico.simbad.emulator.util.AicoAgent;
 import aico.simbad.emulator.util.Constants;
 import aico.simbad.emulator.util.DataBlock;
-import aico.simbad.emulator.util.DeviceBuilder;
+import aico.simbad.emulator.util.AicoDeviceBuilder;
 
 import simbad.sim.CameraSensor;
 import simbad.sim.RangeSensorBelt;
@@ -17,7 +17,7 @@ import simbad.sim.SensorDevice;
 
 public class Robot extends AicoAgent {
 	
-	final NavAlgo navalgo;
+	final NavigationAlgorithm navalgo;
 
 	final RangeSensorBelt sonars;
 	final RangeSensorBelt bumpers;
@@ -26,18 +26,16 @@ public class Robot extends AicoAgent {
 
 	public Robot(Vector3d pos, String name) {
 		super(pos, name);
-		sonars = DeviceBuilder.addDistanceBeltSensor(this, 4);
+		sonars = AicoDeviceBuilder.addAicoDistanceBeltSensor(this, 4);
 		bumpers = RobotFactory.addBumperBeltSensor(this, 8);
 		camera = RobotFactory.addCameraSensor(this);
 		cameraImage = camera.createCompatibleImage();
-		navalgo = new NavAlgo();
+		navalgo = new NavigationAlgorithm();
 	}
 
 	public void initBehavior() {
 		// Point in new direction
 		rotateY(-Math.PI / 2);
-		// Set body color
-		setColor(new Color3f(0, 1, 0));
 	}
 
 	public void performBehavior() {
@@ -53,19 +51,28 @@ public class Robot extends AicoAgent {
 
 				// Logging
 				System.out.println("Sonar at angle "
-						+ data.getDistanceSensorAngle()[i] + "measured range ="
+						+ data.getDistanceSensorAngle()[i] + " measured range ="
 						+ data.getDistanceMeasurement()[i]
 						+ " has hit something:" + data.getDistanceHasHit()[i]);
 			}
 
 			EngineActions nextAction = navalgo.calcNextAction(data);
-			performMovement(nextAction);
+			performEngineAction(nextAction);
 
 		}
 
 	}
 
-	private void performMovement(EngineActions action) {
+	
+	/**
+	 * Perform engine action, depending on received action from
+	 * navigation algorithm. Navigation algorithm does not know
+	 * how to do any type of actions, it just knows the list
+	 * of available actions (EngineActions). This method knows
+	 * how to make this actions in real life.
+	 * @param action abstraction of action which will be executed
+	 */
+	private void performEngineAction(EngineActions action) {
 		switch (action) {
 		case MOVE_FORWARD:
 			setAicoTranslationalVelocity(Constants.TRANSLATION_VELOCITY);
@@ -73,14 +80,17 @@ public class Robot extends AicoAgent {
 		case MOVE_BACKWARD:
 			setAicoTranslationalVelocity(-Constants.TRANSLATION_VELOCITY);
 			break;
-		case MOVE_LEFT:
+		case MOVE_LEFTWARD:
+			setAicoTranslationalVelocity(0);
 			setAicoShiftVelocity(-Constants.TRANSLATION_VELOCITY);
 			break;
-		case MOVE_RIGHT:
+		case MOVE_RIGHTWARD:
+			setAicoTranslationalVelocity(0);
 			setAicoShiftVelocity(Constants.TRANSLATION_VELOCITY);
 			break;
 		case MOVE_STOP:
 			setAicoTranslationalVelocity(0);
+			setAicoShiftVelocity(0);
 			break;
 		case ROTATE_LEFT:
 			setAicoRotationalVelocity(Constants.ROTATION_VELOCITY);
@@ -91,11 +101,20 @@ public class Robot extends AicoAgent {
 		case ROTATE_STOP:
 			setAicoRotationalVelocity(0);
 			break;
+		case ALL_STOP:
+			setAicoTranslationalVelocity(0);
+			setAicoShiftVelocity(0);
+			setAicoRotationalVelocity(0);
+			break;
 		default:
+			System.err.println("Not all EngineActions are implemented yet!");
 			break;
 		}
 	}
 
+	/** 
+	 * This function used is AicoDeviceBuilder for attaching belt of sensors.
+	 */
 	public int addSensorDevice(SensorDevice sd, Vector3d position, double angle) {
 		return super.addSensorDevice(sd, position, angle);
 	}
