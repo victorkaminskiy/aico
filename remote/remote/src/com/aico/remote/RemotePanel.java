@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -90,6 +93,27 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		vert.add(trottleProgr);
 		yawProgr=new JProgressBar(0,100);
 		vert.add(yawProgr);
+		Box b=Box.createVerticalBox();
+		final JSlider slider=new JSlider(0, 100,0);
+		slider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				changed((slider.getValue()-50)/50F, 0, 0, 0, 0);
+			}
+		});
+		b.add(slider);
+		
+		JButton button=new JButton("Start");
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changed((slider.getValue()-50)/50F, 0, 0, 0, 1);
+			}
+		});
+		b.add(button);
+		vert.add(b);
 		add(vert, BorderLayout.SOUTH);
 	}
 
@@ -107,17 +131,42 @@ public class RemotePanel extends JPanel implements RemoteListener {
 	@Override
 	public void changed(float trottle, float roll, float pitch, float yaw,
 			float start) {
-		if(Math.abs(trottle)<0.1){
+		final float deadZone=0.05F;
+		if(Math.abs(trottle)<deadZone){
 			trottle=0;
 		}
-		if(Math.abs(roll)<0.1){
+		if(trottle<0){
+			trottle+=deadZone;
+		}
+		if(trottle>0){
+			trottle-=deadZone;
+		}
+		if(Math.abs(roll)<deadZone){
 			roll=0;
 		}
-		if(Math.abs(pitch)<0.1){
+		if(roll<0){
+			roll+=deadZone;
+		}
+		if(roll>0){
+			roll-=deadZone;
+		}
+		if(Math.abs(pitch)<deadZone){
 			pitch=0;
 		}
-		if(Math.abs(yaw)<0.1){
+		if(pitch<0){
+			pitch+=deadZone;
+		}
+		if(pitch>0){
+			pitch-=deadZone;
+		}
+		if(Math.abs(yaw)<deadZone){
 			yaw=0;
+		}
+		if(yaw<0){
+			yaw+=deadZone;
+		}
+		if(yaw>0){
+			yaw-=deadZone;
 		}
 		com.changed(trottle, roll/2, pitch/2, yaw/2, start);
 		this.trottle = trottle;

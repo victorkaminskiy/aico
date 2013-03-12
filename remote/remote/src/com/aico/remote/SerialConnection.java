@@ -73,6 +73,7 @@ public final class SerialConnection {
 	 *            - connection properties
 	 */
 	protected SerialConnection(String portName) {
+		this.portName=portName;
 	}
 
 	public String toString() {

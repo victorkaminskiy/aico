@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public class Communicator implements RemoteListener, Runnable {
-	private static final int TROT_MIDDLE_VALUE = 26;
-	private static final int MIDDLE_VALUE = 24;
-	private static final int ROLL_MIDDLE_VALUE = 76;
+	private static final int TROT_MIDDLE_VALUE = 260;
+	private static final int MIDDLE_VALUE = 245;
+	private static final int ROLL_MIDDLE_VALUE = 760;
 
-	private static final int RANGE = 24;
+	private static final int RANGE = 244;
 
 	private SerialConnection connection;
 	private ByteBuffer sendBuffer = ByteBuffer.allocate(256);
@@ -85,7 +85,7 @@ public class Communicator implements RemoteListener, Runnable {
 
 	public void start() {
 		if (this.started) {
-			setValues(-1, 0, 0, -1);
+			setValues(-1, 0, 0, -0.9F);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -95,7 +95,7 @@ public class Communicator implements RemoteListener, Runnable {
 			setValues(-1, 0, 0, 0);
 			started = false;
 		} else {
-			setValues(-1, 0, 0, 1);
+			setValues(-1, 0, 0, 0.9F);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
