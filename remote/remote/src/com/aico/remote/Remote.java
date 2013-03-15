@@ -87,34 +87,72 @@ public class Remote implements Runnable {
 		float p = -1;
 		float y = -1;
 		float s = -1;
+		if (joystick != null) {
+			while (true) {
+				joystick.poll();
+				if ((t != trottle.getPollData()) || (r != roll.getPollData())
+						|| (p != pitch.getPollData())
+						|| (y != yaw.getPollData())
+						|| (s != start.getPollData())) {
+					t = trottle.getPollData();
+					r = roll.getPollData();
+					p = pitch.getPollData();
+					y = yaw.getPollData();
+					s = start.getPollData();
+					final float deadZone = 0.05F;
+					if (Math.abs(t) < deadZone) {
+						t = 0;
+					}
+					if (t < 0) {
+						t += deadZone;
+					}
+					if (t > 0) {
+						t -= deadZone;
+					}
+					if (Math.abs(r) < deadZone) {
+						r = 0;
+					}
+					if (r < 0) {
+						r += deadZone;
+					}
+					if (r > 0) {
+						r -= deadZone;
+					}
+					if (Math.abs(p) < deadZone) {
+						p = 0;
+					}
+					if (p < 0) {
+						p += deadZone;
+					}
+					if (p > 0) {
+						p -= deadZone;
+					}
+					if (Math.abs(y) < deadZone) {
+						y = 0;
+					}
+					if (y < 0) {
+						y += deadZone;
+					}
+					if (y > 0) {
+						y -= deadZone;
+					}
+					for (RemoteListener listener : listeners) {
+						try {
+							listener.changed(t, r / 2, p / 2, y / 2,
+									start.getPollData());
 
-		while (true) {
-			joystick.poll();
-			if ((t != trottle.getPollData()) || (r != roll.getPollData())
-					|| (p != pitch.getPollData()) || (y != yaw.getPollData())
-					|| (s != start.getPollData())) {
-				t=trottle.getPollData();
-				r=roll.getPollData();
-				p=pitch.getPollData();
-				y=yaw.getPollData();
-				s=start.getPollData();
-				for (RemoteListener listener : listeners) {
-					try {
-						listener.changed(trottle.getPollData(),
-								roll.getPollData(), pitch.getPollData(),
-								yaw.getPollData(), start.getPollData());
+						} catch (Exception e) {
 
-					} catch (Exception e) {
-
+						}
 					}
 				}
-			}
 
-			try {
-				Thread.sleep(20);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -130,7 +168,7 @@ public class Remote implements Runnable {
 		frame.setLayout(new BorderLayout());
 		frame.add(panel);
 		remote.addRemoteListener(panel);
-		frame.setBounds(100, 100, 300, 300);
+		frame.setBounds(100, 100, 300, 400);
 		final Thread thread = new Thread(remote);
 		thread.start();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

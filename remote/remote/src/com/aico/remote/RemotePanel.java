@@ -6,8 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Enumeration;
 
 import javax.swing.Box;
@@ -27,16 +30,17 @@ public class RemotePanel extends JPanel implements RemoteListener {
 	 */
 	private static final long serialVersionUID = -977197592284133514L;
 	private int SIZE = 200;
-	private float trottle;
-	private float roll;
-	private float pitch;
-	private float yaw;
+	private float trottle=-1F;
+	private float roll=0;
+	private float pitch=0;
+	private float yaw=0;
 	private JComboBox comboBox;
 	private JProgressBar trottleProgr;
 	private JProgressBar yawProgr;
 	private JPanel axisPanel;
 	private JButton connect;
 	private Communicator com;
+	private JSlider slider;
 
 	public RemotePanel() {
 		setMinimumSize(new Dimension(SIZE + 80, SIZE + 50));
@@ -88,33 +92,35 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		});
 		box.add(connect);
 		add(box, BorderLayout.NORTH);
-		Box vert=Box.createVerticalBox();
-		trottleProgr=new JProgressBar(0,100);
+		Box vert = Box.createVerticalBox();
+		trottleProgr = new JProgressBar(0, 100);
 		vert.add(trottleProgr);
-		yawProgr=new JProgressBar(0,100);
+		yawProgr = new JProgressBar(0, 100);
 		vert.add(yawProgr);
-		Box b=Box.createVerticalBox();
-		final JSlider slider=new JSlider(0, 100,0);
+		Box b = Box.createVerticalBox();
+		slider = new JSlider(0, 100, 0);
 		slider.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				changed((slider.getValue()-50)/50F, 0, 0, 0, 0);
+				//changed((slider.getValue()-50)/ 50F, roll, pitch, yaw, 0);
 			}
 		});
 		b.add(slider);
-		
-		JButton button=new JButton("Start");
+
+		JButton button = new JButton("Start");
 		button.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changed((slider.getValue()-50)/50F, 0, 0, 0, 1);
+				changed(trottle, 0, 0, 0, 1);
 			}
 		});
 		b.add(button);
 		vert.add(b);
 		add(vert, BorderLayout.SOUTH);
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
 	}
 
 	public void refreshPorts() {
@@ -127,54 +133,81 @@ public class RemotePanel extends JPanel implements RemoteListener {
 			}
 		}
 	}
+	
+	public float checkRanges(float value, float min, float max){
+		if(value<min){
+			value=min;
+		}
+		if(value>max){
+			value=max;
+		}
+		return value;
+	}
 
 	@Override
 	public void changed(float trottle, float roll, float pitch, float yaw,
 			float start) {
-		final float deadZone=0.05F;
-		if(Math.abs(trottle)<deadZone){
-			trottle=0;
-		}
-		if(trottle<0){
-			trottle+=deadZone;
-		}
-		if(trottle>0){
-			trottle-=deadZone;
-		}
-		if(Math.abs(roll)<deadZone){
-			roll=0;
-		}
-		if(roll<0){
-			roll+=deadZone;
-		}
-		if(roll>0){
-			roll-=deadZone;
-		}
-		if(Math.abs(pitch)<deadZone){
-			pitch=0;
-		}
-		if(pitch<0){
-			pitch+=deadZone;
-		}
-		if(pitch>0){
-			pitch-=deadZone;
-		}
-		if(Math.abs(yaw)<deadZone){
-			yaw=0;
-		}
-		if(yaw<0){
-			yaw+=deadZone;
-		}
-		if(yaw>0){
-			yaw-=deadZone;
-		}
-		com.changed(trottle, roll/2, pitch/2, yaw/2, start);
+		trottle=checkRanges(trottle,-1F,1F);
+		roll=checkRanges(roll,-1F,1F);
+		pitch=checkRanges(pitch,-1F,1F);
+		yaw=checkRanges(yaw,-1F,1F);
+		com.changed(trottle, roll, pitch, yaw, start);
 		this.trottle = trottle;
 		this.roll = roll;
 		this.pitch = pitch;
 		this.yaw = yaw;
 		axisPanel.repaint();
-		trottleProgr.setValue((int) ((trottle) * 100));
+		//slider.setValue((int)((trottle+1)*100F));
+		trottleProgr.setValue((int) ((trottle+1) * 100));
 		yawProgr.setValue((int) ((yaw + 1) * 50));
+	}
+	
+	private class MyDispatcher implements KeyEventDispatcher{
+
+		@Override
+		public boolean dispatchKeyEvent(KeyEvent e) {
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_D: {
+				changed(trottle, 0, 0, 0, 0);
+				break;
+			}
+			case KeyEvent.VK_X: {
+				changed(trottle-0.05F, 0, 0, 0, 0);
+				break;
+			}
+			case KeyEvent.VK_A: {
+				changed(trottle+0.01F, roll, pitch, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_Z: {
+				changed(trottle-0.01F, roll, pitch, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_UP: {
+				changed(trottle, roll, pitch+0.01F, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_DOWN: {
+				changed(trottle, roll, pitch-0.01F, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_LEFT: {
+				changed(trottle, roll-0.01F, pitch, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_RIGHT: {
+				changed(trottle, roll+0.01F, pitch, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_E: {
+				changed(trottle, 0, 0, 0, 1);
+				break;
+			}
+			default:
+				return false;
+			}
+			return true;
+		}
+		
 	}
 }

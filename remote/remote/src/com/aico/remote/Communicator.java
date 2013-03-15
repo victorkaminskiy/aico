@@ -39,7 +39,7 @@ public class Communicator implements RemoteListener, Runnable {
 			final int len = connection.write(sendBuffer);
 			System.out.println("len= " + len);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			
 		}
 		// Thread.sleep(10);
 	}
@@ -85,9 +85,9 @@ public class Communicator implements RemoteListener, Runnable {
 
 	public void start() {
 		if (this.started) {
-			setValues(-1, 0, 0, -0.9F);
+			setValues(-1, 0, 0, -0.95F);
 			try {
-				Thread.sleep(500);
+				Thread.sleep(600);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,9 +95,9 @@ public class Communicator implements RemoteListener, Runnable {
 			setValues(-1, 0, 0, 0);
 			started = false;
 		} else {
-			setValues(-1, 0, 0, 0.9F);
+			setValues(-1, 0, 0, 0.95F);
 			try {
-				Thread.sleep(500);
+				Thread.sleep(600);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
