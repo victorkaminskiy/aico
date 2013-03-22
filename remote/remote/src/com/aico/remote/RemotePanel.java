@@ -30,10 +30,10 @@ public class RemotePanel extends JPanel implements RemoteListener {
 	 */
 	private static final long serialVersionUID = -977197592284133514L;
 	private int SIZE = 200;
-	private float trottle=-1F;
-	private float roll=0;
-	private float pitch=0;
-	private float yaw=0;
+	private float trottle = -1F;
+	private float roll = 0;
+	private float pitch = 0;
+	private float yaw = 0;
 	private JComboBox comboBox;
 	private JProgressBar trottleProgr;
 	private JProgressBar yawProgr;
@@ -103,7 +103,7 @@ public class RemotePanel extends JPanel implements RemoteListener {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				//changed((slider.getValue()-50)/ 50F, roll, pitch, yaw, 0);
+				// changed((slider.getValue()-50)/ 50F, roll, pitch, yaw, 0);
 			}
 		});
 		b.add(slider);
@@ -119,8 +119,9 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		b.add(button);
 		vert.add(b);
 		add(vert, BorderLayout.SOUTH);
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new MyDispatcher());
+		KeyboardFocusManager manager = KeyboardFocusManager
+				.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new MyDispatcher());
 	}
 
 	public void refreshPorts() {
@@ -133,13 +134,13 @@ public class RemotePanel extends JPanel implements RemoteListener {
 			}
 		}
 	}
-	
-	public float checkRanges(float value, float min, float max){
-		if(value<min){
-			value=min;
+
+	public float checkRanges(float value, float min, float max) {
+		if (value < min) {
+			value = min;
 		}
-		if(value>max){
-			value=max;
+		if (value > max) {
+			value = max;
 		}
 		return value;
 	}
@@ -147,22 +148,22 @@ public class RemotePanel extends JPanel implements RemoteListener {
 	@Override
 	public void changed(float trottle, float roll, float pitch, float yaw,
 			float start) {
-		trottle=checkRanges(trottle,-1F,1F);
-		roll=checkRanges(roll,-1F,1F);
-		pitch=checkRanges(pitch,-1F,1F);
-		yaw=checkRanges(yaw,-1F,1F);
+		trottle = checkRanges(trottle, -1F, 1F);
+		roll = checkRanges(roll, -1F, 1F);
+		pitch = checkRanges(pitch, -1F, 1F);
+		yaw = checkRanges(yaw, -1F, 1F);
 		com.changed(trottle, roll, pitch, yaw, start);
 		this.trottle = trottle;
 		this.roll = roll;
 		this.pitch = pitch;
 		this.yaw = yaw;
 		axisPanel.repaint();
-		//slider.setValue((int)((trottle+1)*100F));
-		trottleProgr.setValue((int) ((trottle+1) * 100));
+		// slider.setValue((int)((trottle+1)*100F));
+		trottleProgr.setValue((int) ((trottle + 1) * 100));
 		yawProgr.setValue((int) ((yaw + 1) * 50));
 	}
-	
-	private class MyDispatcher implements KeyEventDispatcher{
+
+	private class MyDispatcher implements KeyEventDispatcher {
 
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent e) {
@@ -172,31 +173,39 @@ public class RemotePanel extends JPanel implements RemoteListener {
 				break;
 			}
 			case KeyEvent.VK_X: {
-				changed(trottle-0.05F, 0, 0, 0, 0);
+				changed(trottle - 0.05F, 0, 0, 0, 0);
 				break;
 			}
 			case KeyEvent.VK_A: {
-				changed(trottle+0.01F, roll, pitch, yaw, 0);
+				changed(trottle + 0.01F, roll, pitch, yaw, 0);
 				break;
 			}
 			case KeyEvent.VK_Z: {
-				changed(trottle-0.01F, roll, pitch, yaw, 0);
+				changed(trottle - 0.01F, roll, pitch, yaw, 0);
+				break;
+			}
+			case KeyEvent.VK_Q: {
+				changed(trottle, roll, pitch, yaw - 0.01F, 0);
+				break;
+			}
+			case KeyEvent.VK_W: {
+				changed(trottle, roll, pitch, yaw + 0.01F, 0);
 				break;
 			}
 			case KeyEvent.VK_UP: {
-				changed(trottle, roll, pitch+0.01F, yaw, 0);
+				changed(trottle, roll, pitch + 0.01F, yaw, 0);
 				break;
 			}
 			case KeyEvent.VK_DOWN: {
-				changed(trottle, roll, pitch-0.01F, yaw, 0);
+				changed(trottle, roll, pitch - 0.01F, yaw, 0);
 				break;
 			}
 			case KeyEvent.VK_LEFT: {
-				changed(trottle, roll-0.01F, pitch, yaw, 0);
+				changed(trottle, roll - 0.01F, pitch, yaw, 0);
 				break;
 			}
 			case KeyEvent.VK_RIGHT: {
-				changed(trottle, roll+0.01F, pitch, yaw, 0);
+				changed(trottle, roll + 0.01F, pitch, yaw, 0);
 				break;
 			}
 			case KeyEvent.VK_E: {
@@ -208,6 +217,6 @@ public class RemotePanel extends JPanel implements RemoteListener {
 			}
 			return true;
 		}
-		
+
 	}
 }
