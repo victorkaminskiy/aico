@@ -7,10 +7,10 @@ import java.awt.Polygon;
 import javax.swing.JPanel;
 
 public class PlotterPanel extends JPanel implements MovementListener {
-	private float ex = 0;
-	private float ey = 0;
-	private float ez = 0;
-
+	private float ax = 0;
+	private float ay = 0;
+	private float az = 0;
+	
 	private float vx = 0;
 	private float vy = 0;
 	private float vz = 0;
@@ -18,7 +18,7 @@ public class PlotterPanel extends JPanel implements MovementListener {
 	private float y = 0;
 	private float z = 0;
 	private long time = -1;
-	private Polygon polygon = new Polygon();
+	//private Polygon polygon = new Polygon();
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class PlotterPanel extends JPanel implements MovementListener {
 
 	public PlotterPanel() {
 		super();
-		polygon.addPoint(0, 0);
+		//polygon.addPoint(0, 0);
 
 	}
 
@@ -41,7 +41,7 @@ public class PlotterPanel extends JPanel implements MovementListener {
 			x += (this.vx + vx) * dt / 2;
 			y += (this.vy + vy) * dt / 2;
 			z += (this.vz + vz) * dt / 2;
-			polygon.addPoint((int) x, (int) y);
+			//polygon.addPoint((int) x, (int) y);
 			this.vx = vx;
 			this.vy = vy;
 			this.vz = vz;
@@ -53,7 +53,7 @@ public class PlotterPanel extends JPanel implements MovementListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.black);
-		g.drawPolygon(polygon);
+		//g.drawPolygon(polygon);
 	}
 
 }

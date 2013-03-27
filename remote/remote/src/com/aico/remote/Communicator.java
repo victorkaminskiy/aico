@@ -2,6 +2,7 @@ package com.aico.remote;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 public class Communicator implements RemoteListener, Runnable {
 	private static final int TROT_MIDDLE_VALUE = 260;
@@ -15,6 +16,7 @@ public class Communicator implements RemoteListener, Runnable {
 	private ByteBuffer recvBuffer = ByteBuffer.allocate(256);
 	private boolean started = false;
 	private float startPrev = 0;
+	private ArrayList<MovementListener> listeners = new ArrayList<MovementListener>();
 
 	public void connect(String portName) {
 		try {
@@ -29,6 +31,12 @@ public class Communicator implements RemoteListener, Runnable {
 		}
 	}
 
+	protected void notifyMovement(MovementEvent event) {
+		for (MovementListener listener : listeners) {
+			listener.changed(event);
+		}
+	}
+
 	public void sendBuffer(String str) {
 		System.out.println(str);
 		try {
@@ -39,7 +47,7 @@ public class Communicator implements RemoteListener, Runnable {
 			final int len = connection.write(sendBuffer);
 			System.out.println("len= " + len);
 		} catch (Exception e1) {
-			
+
 		}
 		// Thread.sleep(10);
 	}
@@ -51,13 +59,53 @@ public class Communicator implements RemoteListener, Runnable {
 			recvBuffer.clear();
 			connection.read(recvBuffer);
 			recvBuffer.flip();
-			builder.append(new String(recvBuffer.array()));
+			System.out.println("recv");
+			if (recvBuffer.remaining() == 58) {
+				final short ax = recvBuffer.getShort();
+				final short ay = recvBuffer.getShort();
+				final short az = recvBuffer.getShort();
+				final short gx = recvBuffer.getShort();
+				final short gy = recvBuffer.getShort();
+				final short gz = recvBuffer.getShort();
+				final short mx = recvBuffer.getShort();
+				final short my = recvBuffer.getShort();
+				final short mz = recvBuffer.getShort();
+
+				final short r1 = recvBuffer.getShort();
+				final short r2 = recvBuffer.getShort();
+				final short r3 = recvBuffer.getShort();
+				final short r4 = recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+
+				final short trot = recvBuffer.getShort();
+				final short roll = recvBuffer.getShort();
+				final short pitch = recvBuffer.getShort();
+				final short yaw = recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+
+				final short v1 = recvBuffer.getShort();
+				final short v2 = recvBuffer.getShort();
+				final short v3 = recvBuffer.getShort();
+				final short v4 = recvBuffer.getShort();
+
+				
+				notifyMovement(new MovementEvent(System.currentTimeMillis(),
+						ax, ay, az, gx, gy, gz, mx, my, mz, r1, r2, r3, r4,
+						trot, roll, pitch, yaw));
+			}
+			// builder.append(new String(recvBuffer.array()));
 			// for (byte b : recvBuffer.array()) {
 			// builder.append(b);
 			// builder.append(" ");
 			// }
-			builder.append("\r\n");
-			System.out.println(builder);
+			// builder.append("\r\n");
+			// System.out.println(builder);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,8 +125,8 @@ public class Communicator implements RemoteListener, Runnable {
 	}
 
 	public void setValues(float trottle, float roll, float pitch, float yaw) {
-		sendBuffer("setDC " + ((int) (TROT_MIDDLE_VALUE - RANGE * trottle)) + " "
-				+ ((int) (ROLL_MIDDLE_VALUE + RANGE * roll)) + " "
+		sendBuffer("setDC " + ((int) (TROT_MIDDLE_VALUE - RANGE * trottle))
+				+ " " + ((int) (ROLL_MIDDLE_VALUE + RANGE * roll)) + " "
 				+ ((int) (MIDDLE_VALUE - RANGE * pitch)) + " "
 				+ ((int) (MIDDLE_VALUE - RANGE * yaw)));
 	}
@@ -105,5 +153,9 @@ public class Communicator implements RemoteListener, Runnable {
 			setValues(-1, 0, 0, 0);
 			started = true;
 		}
+	}
+
+	public void addMovementListener(MovementListener listener) {
+		listeners.add(listener);
 	}
 }

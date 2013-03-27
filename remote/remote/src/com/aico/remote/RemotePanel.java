@@ -92,6 +92,9 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		});
 		box.add(connect);
 		add(box, BorderLayout.NORTH);
+		final ParamsPanel params=new ParamsPanel();
+		com.addMovementListener(params);
+		add(params, BorderLayout.EAST);
 		Box vert = Box.createVerticalBox();
 		trottleProgr = new JProgressBar(0, 100);
 		vert.add(trottleProgr);
