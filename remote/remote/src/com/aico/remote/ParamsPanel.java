@@ -28,6 +28,10 @@ public class ParamsPanel extends Box implements MovementListener {
 	private JLabel roll = new JLabel("0000");
 	private JLabel pitch = new JLabel("0000");
 	private JLabel yaw = new JLabel("0000");
+	
+	private JLabel anglex = new JLabel("0000");
+	private JLabel angley = new JLabel("0000");
+	private JLabel head = new JLabel("0000");
 
 	/**
 	 * 
@@ -125,6 +129,24 @@ public class ParamsPanel extends Box implements MovementListener {
 		box.add(Box.createHorizontalStrut(5));
 		box.add(yaw);
 		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("anglex"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(anglex);
+		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("angley"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(angley);
+		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("head"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(head);
+		add(box);
 
 		ax.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		ay.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
@@ -145,6 +167,10 @@ public class ParamsPanel extends Box implements MovementListener {
 		roll.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		pitch.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		yaw.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		anglex.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		angley.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		head.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 
 	}
 
@@ -171,6 +197,27 @@ public class ParamsPanel extends Box implements MovementListener {
 		roll.setText(String.valueOf(event.getRoll()));
 		pitch.setText(String.valueOf(event.getPitch()));
 		yaw.setText(String.valueOf(event.getYaw()));
+		
+
+		final int angx=event.getAngx() / 10;
+		final int angy=event.getAngy() / 10;
+		final float a = radians(angx);
+		float b;
+		if (angy < -90) {
+			b = radians(-180 - angy);
+		} else if (angy > 90){
+			b = radians(+180 - angy);
+		}else{
+			b = radians(angy);
+		}
+		final float h = radians(event.getHead());
+		
+		anglex.setText(String.valueOf(event.getAngx()/10));
+		angley.setText(String.valueOf(event.getAngy()/10));
+		head.setText(String.valueOf(event.getHead()));
+	}
+	public float radians(int ang){
+		return (float)(ang*Math.PI/180);
 	}
 
 }

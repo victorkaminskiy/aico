@@ -21,11 +21,15 @@ public class MovementEvent {
 	public short roll;
 	public short pitch;
 	public short yaw;
+	
+	public short angx;
+	public short angy;
+	public short head;
 
 	public MovementEvent(long time, short ax, short ay, short az, short gx,
 			short gy, short gz, short mx, short my, short mz, short r1,
 			short r2, short r3, short r4, short trot, short roll, short pitch,
-			short yaw) {
+			short yaw, short angx,short angy,short head) {
 		this.time = time;
 		this.ax = ax;
 		this.ay = ay;
@@ -44,6 +48,9 @@ public class MovementEvent {
 		this.roll = roll;
 		this.pitch = pitch;
 		this.yaw = yaw;
+		this.angx=angx;
+		this.angy=angy;
+		this.head=head;
 	}
 
 	public long getTime() {
@@ -116,6 +123,18 @@ public class MovementEvent {
 
 	public short getYaw() {
 		return yaw;
+	}
+
+	public short getAngx() {
+		return angx;
+	}
+
+	public short getAngy() {
+		return angy;
+	}
+
+	public short getHead() {
+		return head;
 	}
 
 }

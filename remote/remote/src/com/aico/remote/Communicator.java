@@ -94,10 +94,12 @@ public class Communicator implements RemoteListener, Runnable {
 				final short v3 = recvBuffer.getShort();
 				final short v4 = recvBuffer.getShort();
 
-				
+				final short angx = recvBuffer.getShort();
+				final short angy = recvBuffer.getShort();
+				final short head = recvBuffer.getShort();
 				notifyMovement(new MovementEvent(System.currentTimeMillis(),
 						ax, ay, az, gx, gy, gz, mx, my, mz, r1, r2, r3, r4,
-						trot, roll, pitch, yaw));
+						trot, roll, pitch, yaw, angx, angy, head));
 			}
 			// builder.append(new String(recvBuffer.array()));
 			// for (byte b : recvBuffer.array()) {
