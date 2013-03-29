@@ -34,7 +34,7 @@ public class PlotterPanel extends JPanel implements ChangeListener {
 	@Override
 	public void changed(Copter event) {
 		if (time != -1) {
-			final long dt = event.getTime() - time;
+			final long dt = event.getLastRefreshTime() - time;
 			final float vx = this.vx + event.getAx() * dt;
 			final float vy = this.vy + event.getAy() * dt;
 			final float vz = this.vz + event.getAz() * dt;
@@ -46,7 +46,7 @@ public class PlotterPanel extends JPanel implements ChangeListener {
 			this.vy = vy;
 			this.vz = vz;
 		}
-		time = event.getTime();
+		time = event.getLastRefreshTime();
 	}
 
 	@Override

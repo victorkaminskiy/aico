@@ -17,16 +17,44 @@ public class Copter {
 	private short r3;
 	private short r4;
 
-	private short trot;
+	private short throttle;
 	private short roll;
 	private short pitch;
 	private short yaw;
+
+	private short angx;
+	private short angy;
+	private short head;
 
 	public Copter() {
 	}
 
 	public void setLastRefreshTime(long time) {
 		this.lastRefreshTime = time;
+	}
+
+	public short getAngx() {
+		return angx;
+	}
+
+	public void setAngx(short angx) {
+		this.angx = angx;
+	}
+
+	public short getAngy() {
+		return angy;
+	}
+
+	public void setAngy(short angy) {
+		this.angy = angy;
+	}
+
+	public short getHead() {
+		return head;
+	}
+
+	public void setHead(short head) {
+		this.head = head;
 	}
 
 	public void setAx(short ax) {
@@ -81,8 +109,8 @@ public class Copter {
 		this.r4 = r4;
 	}
 
-	public void setTrottle(short trot) {
-		this.trot = trot;
+	public void setThrottle(short throttle) {
+		this.throttle = throttle;
 	}
 
 	public void setRoll(short roll) {
@@ -153,8 +181,8 @@ public class Copter {
 		return r4;
 	}
 
-	public short getTrot() {
-		return trot;
+	public short getTrottle() {
+		return throttle;
 	}
 
 	public short getRoll() {

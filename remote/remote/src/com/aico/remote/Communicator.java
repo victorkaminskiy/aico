@@ -3,6 +3,7 @@ package com.aico.remote;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 public class Communicator implements RemoteListener, Runnable {
 	private static final int TROT_MIDDLE_VALUE = 260;
@@ -18,9 +19,11 @@ public class Communicator implements RemoteListener, Runnable {
 	private float startPrev = 0;
 	private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
 	private Copter copter;
-	
-	public Communicator(Copter copter){
-		this.copter=copter;
+	private Semaphore semaphore = new Semaphore(1);
+	private volatile String sendString = null;
+
+	public Communicator(Copter copter) {
+		this.copter = copter;
 	}
 
 	public void connect(String portName) {
@@ -42,25 +45,33 @@ public class Communicator implements RemoteListener, Runnable {
 		}
 	}
 
-	public void sendBuffer(String str) {
-		System.out.println(str);
-		try {
-			sendBuffer.clear();
-			sendBuffer.put((str + "\r\n").getBytes());
+	public synchronized void sendBuffer(String str) {
+		sendString = str;
+	}
 
-			sendBuffer.flip();
-			connection.write(sendBuffer);
-		} catch (Exception e1) {
+	public void internalSend() {
+		if (sendString != null) {
+			try {
+				sendBuffer.clear();
+				synchronized (this) {
+					System.out.println(sendString);
+					sendBuffer.put((sendString + "\r\n").getBytes());
+					sendString = null;
+				}
+				sendBuffer.flip();
+				connection.write(sendBuffer);
+			} catch (Exception e1) {
 
+			}
 		}
-		// Thread.sleep(10);
 	}
 
 	@Override
 	public void run() {
 		try {
+			internalSend();
 			recvBuffer.clear();
-			connection.read(recvBuffer);
+			connection.read(recvBuffer,10);
 			recvBuffer.flip();
 			System.out.println("recv");
 			if (recvBuffer.remaining() == 58) {
@@ -83,7 +94,7 @@ public class Communicator implements RemoteListener, Runnable {
 				recvBuffer.getShort();
 				recvBuffer.getShort();
 
-				copter.setTrottle(recvBuffer.getShort());
+				copter.setThrottle(recvBuffer.getShort());
 				copter.setRoll(recvBuffer.getShort());
 				copter.setPitch(recvBuffer.getShort());
 				copter.setYaw(recvBuffer.getShort());
@@ -92,12 +103,9 @@ public class Communicator implements RemoteListener, Runnable {
 				recvBuffer.getShort();
 				recvBuffer.getShort();
 
-				recvBuffer.getShort();
-				final short v2 = recvBuffer.getShort();
-				final short v3 = recvBuffer.getShort();
-				final short v4 = recvBuffer.getShort();
-
-				
+				copter.setAngx(recvBuffer.getShort());
+				copter.setAngy(recvBuffer.getShort());
+				copter.setHead(recvBuffer.getShort());
 				notifyMovement();
 			}
 			// builder.append(new String(recvBuffer.array()));
@@ -156,7 +164,7 @@ public class Communicator implements RemoteListener, Runnable {
 		}
 	}
 
-	public void addMovementListener(ChangeListener listener) {
+	public void addChangeListener(ChangeListener listener) {
 		listeners.add(listener);
 	}
 }

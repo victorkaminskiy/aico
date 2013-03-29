@@ -12,6 +12,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 /**
  * UART serial connection. Uses RXTX UART driver.
@@ -84,10 +85,6 @@ public final class SerialConnection {
 		return TYPE;
 	}
 
-	public int read(byte[] buffer) throws IOException {
-		return read(ByteBuffer.wrap(buffer));
-	}
-
 	public void write(byte[] buffer) throws IOException {
 
 		write(ByteBuffer.wrap(buffer));
@@ -138,10 +135,10 @@ public final class SerialConnection {
 		}
 	}
 
-	public int read(ByteBuffer dst) throws IOException {
+	public int read(ByteBuffer dst,int timeout) throws IOException {
 		int length = 0;
 		try {
-			semaphore.acquire();
+			semaphore.tryAcquire(timeout,TimeUnit.MILLISECONDS);
 			if (state) {
 				length = readChannel.read(dst);
 			}
