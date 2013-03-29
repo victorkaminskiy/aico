@@ -6,7 +6,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 
-public class ParamsPanel extends Box implements MovementListener {
+public class ParamsPanel extends Box implements ChangeListener {
 	private JLabel ax = new JLabel("0000");
 	private JLabel ay = new JLabel("0000");
 	private JLabel az = new JLabel("0000");
@@ -149,7 +149,7 @@ public class ParamsPanel extends Box implements MovementListener {
 	}
 
 	@Override
-	public void changed(MovementEvent event) {
+	public void changed(Copter event) {
 		ax.setText(String.valueOf(event.getAx()));
 		ay.setText(String.valueOf(event.getAy()));
 		az.setText(String.valueOf(event.getAz()));

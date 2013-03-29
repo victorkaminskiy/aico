@@ -6,7 +6,7 @@ import java.awt.Polygon;
 
 import javax.swing.JPanel;
 
-public class PlotterPanel extends JPanel implements MovementListener {
+public class PlotterPanel extends JPanel implements ChangeListener {
 	private float ax = 0;
 	private float ay = 0;
 	private float az = 0;
@@ -32,7 +32,7 @@ public class PlotterPanel extends JPanel implements MovementListener {
 	}
 
 	@Override
-	public void changed(MovementEvent event) {
+	public void changed(Copter event) {
 		if (time != -1) {
 			final long dt = event.getTime() - time;
 			final float vx = this.vx + event.getAx() * dt;

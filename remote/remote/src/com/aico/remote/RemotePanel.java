@@ -41,8 +41,10 @@ public class RemotePanel extends JPanel implements RemoteListener {
 	private JButton connect;
 	private Communicator com;
 	private JSlider slider;
+	private Copter copter;
 
 	public RemotePanel() {
+		copter = new Copter();
 		setMinimumSize(new Dimension(SIZE + 80, SIZE + 50));
 		setPreferredSize(new Dimension(SIZE + 80, SIZE + 5));
 		setLayout(new BorderLayout());
@@ -67,6 +69,11 @@ public class RemotePanel extends JPanel implements RemoteListener {
 			}
 		});
 		axisPanel = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 5271629384214049797L;
+
 			@Override
 			public void paint(Graphics g) {
 				super.printComponent(g);
@@ -82,7 +89,7 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		final Box box = Box.createHorizontalBox();
 		box.add(comboBox);
 		connect = new JButton("Connect");
-		com = new Communicator();
+		com = new Communicator(copter);
 		connect.addActionListener(new ActionListener() {
 
 			@Override
@@ -92,7 +99,7 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		});
 		box.add(connect);
 		add(box, BorderLayout.NORTH);
-		final ParamsPanel params=new ParamsPanel();
+		final ParamsPanel params = new ParamsPanel();
 		com.addMovementListener(params);
 		add(params, BorderLayout.EAST);
 		Box vert = Box.createVerticalBox();

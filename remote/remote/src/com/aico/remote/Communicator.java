@@ -16,7 +16,12 @@ public class Communicator implements RemoteListener, Runnable {
 	private ByteBuffer recvBuffer = ByteBuffer.allocate(256);
 	private boolean started = false;
 	private float startPrev = 0;
-	private ArrayList<MovementListener> listeners = new ArrayList<MovementListener>();
+	private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
+	private Copter copter;
+	
+	public Communicator(Copter copter){
+		this.copter=copter;
+	}
 
 	public void connect(String portName) {
 		try {
@@ -31,9 +36,9 @@ public class Communicator implements RemoteListener, Runnable {
 		}
 	}
 
-	protected void notifyMovement(MovementEvent event) {
-		for (MovementListener listener : listeners) {
-			listener.changed(event);
+	protected void notifyMovement() {
+		for (ChangeListener listener : listeners) {
+			listener.changed(copter);
 		}
 	}
 
@@ -44,8 +49,7 @@ public class Communicator implements RemoteListener, Runnable {
 			sendBuffer.put((str + "\r\n").getBytes());
 
 			sendBuffer.flip();
-			final int len = connection.write(sendBuffer);
-			System.out.println("len= " + len);
+			connection.write(sendBuffer);
 		} catch (Exception e1) {
 
 		}
@@ -54,50 +58,47 @@ public class Communicator implements RemoteListener, Runnable {
 
 	@Override
 	public void run() {
-		final StringBuilder builder = new StringBuilder();
 		try {
 			recvBuffer.clear();
 			connection.read(recvBuffer);
 			recvBuffer.flip();
 			System.out.println("recv");
 			if (recvBuffer.remaining() == 58) {
-				final short ax = recvBuffer.getShort();
-				final short ay = recvBuffer.getShort();
-				final short az = recvBuffer.getShort();
-				final short gx = recvBuffer.getShort();
-				final short gy = recvBuffer.getShort();
-				final short gz = recvBuffer.getShort();
-				final short mx = recvBuffer.getShort();
-				final short my = recvBuffer.getShort();
-				final short mz = recvBuffer.getShort();
+				copter.setAx(recvBuffer.getShort());
+				copter.setAy(recvBuffer.getShort());
+				copter.setAz(recvBuffer.getShort());
+				copter.setGx(recvBuffer.getShort());
+				copter.setGy(recvBuffer.getShort());
+				copter.setGz(recvBuffer.getShort());
+				copter.setMx(recvBuffer.getShort());
+				copter.setMy(recvBuffer.getShort());
+				copter.setMz(recvBuffer.getShort());
 
-				final short r1 = recvBuffer.getShort();
-				final short r2 = recvBuffer.getShort();
-				final short r3 = recvBuffer.getShort();
-				final short r4 = recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-
-				final short trot = recvBuffer.getShort();
-				final short roll = recvBuffer.getShort();
-				final short pitch = recvBuffer.getShort();
-				final short yaw = recvBuffer.getShort();
+				copter.setR1(recvBuffer.getShort());
+				copter.setR2(recvBuffer.getShort());
+				copter.setR3(recvBuffer.getShort());
+				copter.setR4(recvBuffer.getShort());
 				recvBuffer.getShort();
 				recvBuffer.getShort();
 				recvBuffer.getShort();
 				recvBuffer.getShort();
 
-				final short v1 = recvBuffer.getShort();
+				copter.setTrottle(recvBuffer.getShort());
+				copter.setRoll(recvBuffer.getShort());
+				copter.setPitch(recvBuffer.getShort());
+				copter.setYaw(recvBuffer.getShort());
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+				recvBuffer.getShort();
+
+				recvBuffer.getShort();
 				final short v2 = recvBuffer.getShort();
 				final short v3 = recvBuffer.getShort();
 				final short v4 = recvBuffer.getShort();
 
 				
-				notifyMovement(new MovementEvent(System.currentTimeMillis(),
-						ax, ay, az, gx, gy, gz, mx, my, mz, r1, r2, r3, r4,
-						trot, roll, pitch, yaw));
+				notifyMovement();
 			}
 			// builder.append(new String(recvBuffer.array()));
 			// for (byte b : recvBuffer.array()) {
@@ -155,7 +156,7 @@ public class Communicator implements RemoteListener, Runnable {
 		}
 	}
 
-	public void addMovementListener(MovementListener listener) {
+	public void addMovementListener(ChangeListener listener) {
 		listeners.add(listener);
 	}
 }
