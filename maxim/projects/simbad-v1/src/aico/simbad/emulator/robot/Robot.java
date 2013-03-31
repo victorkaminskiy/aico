@@ -43,6 +43,9 @@ public class Robot extends AicoAgent {
 		if (getCounter() % Constants.REFRESH_INTERVAL == 0) {
 			DataBlock data = new DataBlock(sonars.getNumSensors());
 
+            camera.copyVisionImage(cameraImage);
+            data.setCameraImage(cameraImage);
+
 			// Get data from distance sensors
 			for (int i = 0; i < sonars.getNumSensors(); i++) {
 				data.getDistanceMeasurement()[i] = sonars.getMeasurement(i);

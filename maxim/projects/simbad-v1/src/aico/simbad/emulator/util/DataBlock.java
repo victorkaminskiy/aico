@@ -1,11 +1,14 @@
 package aico.simbad.emulator.util;
 
+import java.awt.image.BufferedImage;
+
 public class DataBlock {
 	double translationalValocity;
 	double rotationalVelocity;
 	double[] distanceMeasurement;
 	boolean[] distanceHasHit;
 	double[] distanceSensorAngle;
+    BufferedImage cameraImage;
 	
 	public DataBlock(int numberOfDistanceSensors) {
 		distanceMeasurement = new double[numberOfDistanceSensors];
@@ -52,7 +55,12 @@ public class DataBlock {
 	public void setDistanceHasHit(boolean[] distanceHasHit) {
 		this.distanceHasHit = distanceHasHit;
 	}
-	
-	
 
+    public BufferedImage getCameraImage() {
+        return cameraImage;
+    }
+
+    public void setCameraImage(BufferedImage cameraImage) {
+        this.cameraImage = cameraImage;
+    }
 }

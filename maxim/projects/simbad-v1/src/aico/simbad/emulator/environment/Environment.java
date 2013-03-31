@@ -17,7 +17,7 @@ public class Environment extends EnvironmentDescription {
 	private static final float LAB_WIDTH = 25f;
 	private static final float MIDDLE_WALL_LENGTH = 45f;
 	private static final float RANDOM_WALL_OFFSET_FROM_FURTHEST_WALL = 15f;
-	private static final float GATE_WIDTH = 2f;
+	private static final float GATE_WIDTH = 4f;
 	private static final float GATE_OFFSET_FROM_WALL = 5f;
 
 	public Environment() {
