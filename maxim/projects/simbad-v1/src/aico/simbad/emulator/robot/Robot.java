@@ -28,14 +28,14 @@ public class Robot extends AicoAgent {
 		super(pos, name);
 		sonars = AicoDeviceBuilder.addAicoDistanceBeltSensor(this, 4);
 		bumpers = RobotFactory.addBumperBeltSensor(this, 8);
-		camera = RobotFactory.addCameraSensor(this);
+		camera = RobotFactory.addBottomCameraSensor(this);
 		cameraImage = camera.createCompatibleImage();
 		navalgo = new NavigationAlgorithm();
 	}
 
 	public void initBehavior() {
 		// Point in new direction
-		rotateY(-Math.PI / 2);
+//		rotateY(-Math.PI / 2);
 	}
 
 	public void performBehavior() {
