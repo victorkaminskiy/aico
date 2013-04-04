@@ -13,6 +13,13 @@ public class PathBuilder {
 		path.add(PathElements.BACKWARD);
 		path.add(PathElements.STRAFE);
 		path.add(PathElements.BACKWARD);
+        path.add(PathElements.LAND);
+        path.add(PathElements.TAKE_OFF);
+        path.add(PathElements.FORWARD);
+        // path.add(PathElements.STRAFE); TODO Not now as we do not search for white label
+        path.add(PathElements.RIGHTWARD);
+        path.add(PathElements.BACKWARD);
+        path.add(PathElements.LAND);
 		path.add(PathElements.FINISH);
 		return path;
 	}

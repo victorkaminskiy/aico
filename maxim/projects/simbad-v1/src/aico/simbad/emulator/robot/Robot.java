@@ -28,20 +28,23 @@ public class Robot extends AicoAgent {
 		super(pos, name);
 		sonars = AicoDeviceBuilder.addAicoDistanceBeltSensor(this, 4);
 		bumpers = RobotFactory.addBumperBeltSensor(this, 8);
-		camera = RobotFactory.addCameraSensor(this);
+		camera = RobotFactory.addBottomCameraSensor(this);
 		cameraImage = camera.createCompatibleImage();
 		navalgo = new NavigationAlgorithm();
 	}
 
 	public void initBehavior() {
 		// Point in new direction
-		rotateY(-Math.PI / 2);
+//		rotateY(-Math.PI / 2);
 	}
 
 	public void performBehavior() {
 		// Build block of current data
 		if (getCounter() % Constants.REFRESH_INTERVAL == 0) {
 			DataBlock data = new DataBlock(sonars.getNumSensors());
+
+            camera.copyVisionImage(cameraImage);
+            data.setCameraImage(cameraImage);
 
 			// Get data from distance sensors
 			for (int i = 0; i < sonars.getNumSensors(); i++) {
