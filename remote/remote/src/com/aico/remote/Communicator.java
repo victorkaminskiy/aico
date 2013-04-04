@@ -54,7 +54,7 @@ public class Communicator implements RemoteListener, Runnable {
 			try {
 				sendBuffer.clear();
 				synchronized (this) {
-					System.out.println(sendString);
+					System.out.println(">> " + sendString);
 					sendBuffer.put((sendString + "\r\n").getBytes());
 					sendString = null;
 				}
@@ -68,56 +68,63 @@ public class Communicator implements RemoteListener, Runnable {
 
 	@Override
 	public void run() {
-		try {
-			internalSend();
-			recvBuffer.clear();
-			connection.read(recvBuffer,10);
-			recvBuffer.flip();
-			System.out.println("recv");
-			if (recvBuffer.remaining() == 58) {
-				copter.setAx(recvBuffer.getShort());
-				copter.setAy(recvBuffer.getShort());
-				copter.setAz(recvBuffer.getShort());
-				copter.setGx(recvBuffer.getShort());
-				copter.setGy(recvBuffer.getShort());
-				copter.setGz(recvBuffer.getShort());
-				copter.setMx(recvBuffer.getShort());
-				copter.setMy(recvBuffer.getShort());
-				copter.setMz(recvBuffer.getShort());
+		while (true) {
+			try {
+				internalSend();
+				recvBuffer.clear();
+				final int length = connection.read(recvBuffer, 20);
+				//System.out.println("loop "+length);
 
-				copter.setR1(recvBuffer.getShort());
-				copter.setR2(recvBuffer.getShort());
-				copter.setR3(recvBuffer.getShort());
-				copter.setR4(recvBuffer.getShort());
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
+				if (length > 0) {
+					recvBuffer.flip();
+					System.out.println("<<");
+					if (recvBuffer.remaining() == 58) {
+						copter.setAx(recvBuffer.getShort());
+						copter.setAy(recvBuffer.getShort());
+						copter.setAz(recvBuffer.getShort());
+						copter.setGx(recvBuffer.getShort());
+						copter.setGy(recvBuffer.getShort());
+						copter.setGz(recvBuffer.getShort());
+						copter.setMx(recvBuffer.getShort());
+						copter.setMy(recvBuffer.getShort());
+						copter.setMz(recvBuffer.getShort());
 
-				copter.setThrottle(recvBuffer.getShort());
-				copter.setRoll(recvBuffer.getShort());
-				copter.setPitch(recvBuffer.getShort());
-				copter.setYaw(recvBuffer.getShort());
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
+						copter.setR1(recvBuffer.getShort());
+						copter.setR2(recvBuffer.getShort());
+						copter.setR3(recvBuffer.getShort());
+						copter.setR4(recvBuffer.getShort());
+						recvBuffer.getShort();
+						recvBuffer.getShort();
+						recvBuffer.getShort();
+						recvBuffer.getShort();
 
-				copter.setAngx(recvBuffer.getShort());
-				copter.setAngy(recvBuffer.getShort());
-				copter.setHead(recvBuffer.getShort());
-				notifyMovement();
+						copter.setThrottle(recvBuffer.getShort());
+						copter.setRoll(recvBuffer.getShort());
+						copter.setPitch(recvBuffer.getShort());
+						copter.setYaw(recvBuffer.getShort());
+						recvBuffer.getShort();
+						recvBuffer.getShort();
+						recvBuffer.getShort();
+						recvBuffer.getShort();
+
+						copter.setAngx(recvBuffer.getShort());
+						copter.setAngy(recvBuffer.getShort());
+						copter.setHead(recvBuffer.getShort());
+						notifyMovement();
+					}
+					final StringBuilder builder = new StringBuilder();
+					builder.append(new String(recvBuffer.array(),0,length));
+					//for (byte b : recvBuffer.array()) {
+					//	builder.append(b);
+					//	builder.append(" ");
+					//}
+					builder.append("\r\n");
+					System.out.println(builder);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			// builder.append(new String(recvBuffer.array()));
-			// for (byte b : recvBuffer.array()) {
-			// builder.append(b);
-			// builder.append(" ");
-			// }
-			// builder.append("\r\n");
-			// System.out.println(builder);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 	}

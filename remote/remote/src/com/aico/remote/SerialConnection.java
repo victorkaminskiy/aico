@@ -74,7 +74,7 @@ public final class SerialConnection {
 	 *            - connection properties
 	 */
 	protected SerialConnection(String portName) {
-		this.portName=portName;
+		this.portName = portName;
 	}
 
 	public String toString() {
@@ -127,6 +127,7 @@ public final class SerialConnection {
 				}
 			});
 			port.notifyOnDataAvailable(true);
+			inStream = port.getInputStream();
 			readChannel = Channels.newChannel(port.getInputStream());
 			writeChannel = Channels.newChannel(port.getOutputStream());
 			state = true;
@@ -135,12 +136,14 @@ public final class SerialConnection {
 		}
 	}
 
-	public int read(ByteBuffer dst,int timeout) throws IOException {
+	public int read(ByteBuffer dst, int timeout) throws IOException {
 		int length = 0;
 		try {
-			semaphore.tryAcquire(timeout,TimeUnit.MILLISECONDS);
-			if (state) {
+			final boolean hasBytes = semaphore.tryAcquire(timeout,
+					TimeUnit.MILLISECONDS);
+			if (state && hasBytes && (inStream.available() > 0)) {
 				length = readChannel.read(dst);
+				semaphore.drainPermits();
 			}
 		} catch (Exception e) {
 		}
