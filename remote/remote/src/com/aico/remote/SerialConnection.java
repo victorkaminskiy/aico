@@ -2,24 +2,21 @@ package com.aico.remote;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
-import gnu.io.SerialPortEvent;
-import gnu.io.SerialPortEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 /**
  * UART serial connection. Uses RXTX UART driver.
  * 
  * @author Victor Kaminskiy
  */
-public final class SerialConnection {
+public final class SerialConnection implements Runnable {
 	public static final String PORT = "port";
 	public static final String HARDWARE_CONTROL = "hwcont";
 	public static final String PARITY = "parity";
@@ -38,9 +35,7 @@ public final class SerialConnection {
 	/**
 	 * Input connection stream
 	 */
-	private InputStream inStream = null;
-
-	private ReadableByteChannel readChannel = null;
+	private InputStream inputStream = null;
 	/**
 	 * Output connection stream
 	 */
@@ -50,10 +45,6 @@ public final class SerialConnection {
 	 */
 	private SerialPort port = null;
 
-	/**
-	 * Blocking semaphore
-	 */
-	private Semaphore semaphore = new Semaphore(0);
 	/**
 	 * Connection state. True if connected, otherwise false.
 	 */
@@ -66,6 +57,10 @@ public final class SerialConnection {
 	private int parity = SerialPort.PARITY_NONE;
 	private int flowControl = SerialPort.FLOWCONTROL_NONE;
 	private boolean dtr = false;
+	private DataListener dataListener = null;
+	private static boolean test = true;
+
+	private ByteBuffer byteBuffer = ByteBuffer.allocate(256);
 
 	/**
 	 * Construct serial connection with specified properties
@@ -75,6 +70,10 @@ public final class SerialConnection {
 	 */
 	protected SerialConnection(String portName) {
 		this.portName = portName;
+	}
+
+	public void setDataListener(DataListener dataListener) {
+		this.dataListener = dataListener;
 	}
 
 	public String toString() {
@@ -90,64 +89,36 @@ public final class SerialConnection {
 		write(ByteBuffer.wrap(buffer));
 	}
 
-	public int available() {
-		int length = 0;
-		try {
-			if ((semaphore.tryAcquire()) && (state)) {
-				length = inStream.available();
-			}
-		} catch (Exception ex) {
-			throw new RuntimeException(
-					"Fail to get avaliable info serial port", ex);
-		}
-		return length;
-	}
-
 	public void open() throws IOException {
 		try {
-			final CommPortIdentifier portId = CommPortIdentifier
-					.getPortIdentifier(portName);
-			if (portId == null) {
-				throw new IllegalArgumentException("No such port: " + portName);
-			}
-
-			port = portId.open("Atmel serial plugin", TIMEOUT_FOR_OPEN_PORT);
-			if (port == null) {
-				throw new IllegalArgumentException("Can't open " + portName);
-			}
-			port.setSerialPortParams(bitrate, dataBits, stopBits, parity);
-			port.setFlowControlMode(flowControl);
-			port.setDTR(dtr);
-			port.addEventListener(new SerialPortEventListener() {
-
-				public void serialEvent(SerialPortEvent arg0) {
-					if (SerialPortEvent.DATA_AVAILABLE == arg0.getEventType()) {
-						semaphore.release();
-					}
+			if (!test) {
+				final CommPortIdentifier portId = CommPortIdentifier
+						.getPortIdentifier(portName);
+				if (portId == null) {
+					throw new IllegalArgumentException("No such port: "
+							+ portName);
 				}
-			});
-			port.notifyOnDataAvailable(true);
-			inStream = port.getInputStream();
-			readChannel = Channels.newChannel(port.getInputStream());
-			writeChannel = Channels.newChannel(port.getOutputStream());
+
+				port = portId.open("AICo team app", TIMEOUT_FOR_OPEN_PORT);
+				if (port == null) {
+					throw new IllegalArgumentException("Can't open " + portName);
+				}
+				port.setSerialPortParams(bitrate, dataBits, stopBits, parity);
+				port.setFlowControlMode(flowControl);
+				port.setDTR(dtr);
+			} else {
+				inputStream = new FileInputStream("test.bin");
+				writeChannel = Channels.newChannel(new FileOutputStream(
+						"test.out"));
+			}
+			// inputStream = port.getInputStream();
+			// writeChannel = Channels.newChannel(port.getOutputStream());
+			final Thread thread = new Thread(this);
+			thread.start();
 			state = true;
 		} catch (Exception e) {
 			throw new IOException("Fail to open serial port " + portName, e);
 		}
-	}
-
-	public int read(ByteBuffer dst, int timeout) throws IOException {
-		int length = 0;
-		try {
-			final boolean hasBytes = semaphore.tryAcquire(timeout,
-					TimeUnit.MILLISECONDS);
-			if (state && hasBytes && (inStream.available() > 0)) {
-				length = readChannel.read(dst);
-				semaphore.drainPermits();
-			}
-		} catch (Exception e) {
-		}
-		return length;
 	}
 
 	public void close() throws IOException {
@@ -156,8 +127,7 @@ public final class SerialConnection {
 				state = false;
 				port.notifyOnDataAvailable(false);
 				// port.removeEventListener();
-				readChannel.close();
-				port.getInputStream().close();
+				inputStream.close();
 				writeChannel.close();
 				port.getOutputStream().close();
 				synchronized (port) {
@@ -171,15 +141,38 @@ public final class SerialConnection {
 	}
 
 	public boolean isOpen() {
-		if (readChannel != null) {
-			return readChannel.isOpen();
-		}
-		return false;
+		return state;
 	}
 
 	public int write(ByteBuffer src) throws IOException {
 		int length = 0;
 		length = writeChannel.write(src);
 		return length;
+	}
+
+	@Override
+	public void run() {
+		while (state) {
+			try {
+				byteBuffer.clear();
+				while (inputStream.read() != 0x2A)
+					;
+				final int length = inputStream.read();
+				System.out.println("-- "+length);
+				int index = 0;
+				while (index < length) {
+					final int len = inputStream.read(byteBuffer.array(),
+							byteBuffer.position(), length - index);
+					if (len > 0) {
+						index += len;
+						byteBuffer.position(index);
+					}
+				}
+				byteBuffer.flip();
+				dataListener.dataReceived(byteBuffer);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

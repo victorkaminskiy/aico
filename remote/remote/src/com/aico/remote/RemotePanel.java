@@ -94,7 +94,11 @@ public class RemotePanel extends JPanel implements RemoteListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				com.connect(comboBox.getSelectedItem().toString());
+				String selected=null;
+				if(comboBox.getSelectedItem()!=null){
+					selected=comboBox.getSelectedItem().toString();
+				}
+				com.connect(selected);
 			}
 		});
 		box.add(connect);
