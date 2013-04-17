@@ -139,7 +139,7 @@ public class Remote implements Runnable {
 					for (RemoteListener listener : listeners) {
 						try {
 							listener.changed(t, r / 2, p / 2, y / 2,
-									start.getPollData());
+									start.getPollData(),false);
 
 						} catch (Exception e) {
 

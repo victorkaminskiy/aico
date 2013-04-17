@@ -194,9 +194,9 @@ void serialCom() {
           checksum[CURRENTPORT] ^= c;
           inBuf[offset[CURRENTPORT]++][CURRENTPORT] = c;
         } else if (c_state[CURRENTPORT] == HEADER_CMD && offset[CURRENTPORT] >= dataSize[CURRENTPORT]) {
-          if (checksum[CURRENTPORT] == c) {  // compare calculated and transferred checksum
+          //if (checksum[CURRENTPORT] == c) {  // compare calculated and transferred checksum
             evaluateCommand();  // we got a valid packet, evaluate it
-          }
+          //}
           c_state[CURRENTPORT] = IDLE;
         }
       #endif // SUPPRESS_ALL_SERIAL_MSP

@@ -690,6 +690,10 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
 }
 
 void setup() {
+  //rcData[0]=1000;
+  //rcData[1]=1500;
+  //rcData[2]=1500;
+  //rcData[3]=1500;
   #if !defined(GPS_PROMINI)
     SerialOpen(0,SERIAL0_COM_SPEED);
     #if defined(PROMICRO)
@@ -1361,22 +1365,4 @@ void loop () {
   mixTable();
   writeServos();
   writeMotors();
-}
-
-int main(void)
-{
-	init();
-
-#if defined(USBCON)
-	USBDevice.attach();
-#endif
-
-	setup();
-
-	for (;;) {
-		loop();
-		if (serialEventRun) serialEventRun();
-	}
-
-	return 0;
 }

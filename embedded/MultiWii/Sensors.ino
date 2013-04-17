@@ -1699,6 +1699,20 @@ void Sonar_update() {
       tinygps_query();
     }
 }
+#elif defined(U020)
+#include <NewPing.h>
+#define TRIGGER_PIN  33  // Arduino pin tied to trigger pin on the ultrasonic sensor.
+#define ECHO_PIN     32  // Arduino pin tied to echo pin on the ultrasonic sensor.
+#define MAX_DISTANCE 100 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
+
+//NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
+inline void Sonar_init() {}
+void Sonar_update() {
+  //pinMode(TRIGGER_PIN, OUTPUT); 
+  //sonarAlt=sonar.ping_cm();
+  //EstAlt=sonarAlt;
+  //EstAlt=(sonarAlt*8+EstAlt*0)>>3;
+}
 #else
 inline void Sonar_init() {}
 inline void Sonar_update() {}

@@ -28,6 +28,7 @@ public class ParamsPanel extends Box implements ChangeListener {
 	private JLabel roll = new JLabel("0000");
 	private JLabel pitch = new JLabel("0000");
 	private JLabel yaw = new JLabel("0000");
+	private JLabel rc5 = new JLabel("0000");
 	
 	private JLabel anglex = new JLabel("0000");
 	private JLabel angley = new JLabel("0000");
@@ -131,6 +132,12 @@ public class ParamsPanel extends Box implements ChangeListener {
 		add(box);
 		
 		box = Box.createHorizontalBox();
+		box.add(new JLabel("rc5"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(rc5);
+		add(box);
+		
+		box = Box.createHorizontalBox();
 		box.add(new JLabel("anglex"));
 		box.add(Box.createHorizontalStrut(5));
 		box.add(anglex);
@@ -167,6 +174,7 @@ public class ParamsPanel extends Box implements ChangeListener {
 		roll.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		pitch.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		yaw.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		rc5.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		
 		anglex.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		angley.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
@@ -197,6 +205,7 @@ public class ParamsPanel extends Box implements ChangeListener {
 		roll.setText(String.valueOf(event.getRoll()));
 		pitch.setText(String.valueOf(event.getPitch()));
 		yaw.setText(String.valueOf(event.getYaw()));
+		rc5.setText(String.valueOf(event.getRC5()));
 		
 
 		final int angx=event.getAngx() / 10;

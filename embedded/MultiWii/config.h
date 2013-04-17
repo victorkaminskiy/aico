@@ -64,7 +64,7 @@
   /****************************    Mincommand          *******************************/
     /* this is the value for the ESCs when they are not armed
        in some cases, this value must be lowered down to 900 for some specific ESCs, otherwise they failed to initiate */
-    #define MINCOMMAND  1000
+    #define MINCOMMAND  900
 
   /**********************************    I2C speed   ************************************/
     #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
@@ -179,6 +179,7 @@
       //#define SRF08
       //#define SRF10
       //#define SRF23
+      #define U020
 
       /* ADC accelerometer */ // for 5DOF from sparkfun, uses analog PIN A1/A2/A3
       //#define ADCACC
@@ -384,7 +385,7 @@
       //#define SBUS
 
     /******************* RC signal from the serial port via Multiwii Serial Protocol *********/
-      //#define RCSERIAL
+      #define RCSERIAL
 
 
 

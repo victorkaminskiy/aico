@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSlider;
+import javax.swing.JToggleButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
@@ -42,6 +43,7 @@ public class RemotePanel extends JPanel implements RemoteListener {
 	private Communicator com;
 	private JSlider slider;
 	private Copter copter;
+	private boolean hold = false;
 
 	public RemotePanel() {
 		copter = new Copter();
@@ -94,9 +96,9 @@ public class RemotePanel extends JPanel implements RemoteListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String selected=null;
-				if(comboBox.getSelectedItem()!=null){
-					selected=comboBox.getSelectedItem().toString();
+				String selected = null;
+				if (comboBox.getSelectedItem() != null) {
+					selected = comboBox.getSelectedItem().toString();
 				}
 				com.connect(selected);
 			}
@@ -127,10 +129,24 @@ public class RemotePanel extends JPanel implements RemoteListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changed(trottle, 0, 0, 0, 1);
+				changed(trottle, 0, 0, 0, 1, false);
 			}
 		});
 		b.add(button);
+		final JToggleButton button1 = new JToggleButton("Hold");
+		button1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (button1.isSelected()) {
+					hold=true;
+				} else {
+					hold=false;
+				}
+				changed(trottle, roll, pitch, yaw, 0, hold);
+			}
+		});
+		b.add(button1);
 		vert.add(b);
 		add(vert, BorderLayout.SOUTH);
 		KeyboardFocusManager manager = KeyboardFocusManager
@@ -161,12 +177,12 @@ public class RemotePanel extends JPanel implements RemoteListener {
 
 	@Override
 	public void changed(float trottle, float roll, float pitch, float yaw,
-			float start) {
+			float start, boolean hold) {
 		trottle = checkRanges(trottle, -1F, 1F);
 		roll = checkRanges(roll, -1F, 1F);
 		pitch = checkRanges(pitch, -1F, 1F);
 		yaw = checkRanges(yaw, -1F, 1F);
-		com.changed(trottle, roll, pitch, yaw, start);
+		com.changed(trottle, roll, pitch, yaw, start, hold);
 		this.trottle = trottle;
 		this.roll = roll;
 		this.pitch = pitch;
@@ -181,49 +197,50 @@ public class RemotePanel extends JPanel implements RemoteListener {
 
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent e) {
+			System.out.println("key code= "+e.getKeyCode()+" "+e.getKeyChar());
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_D: {
-				changed(trottle, 0, 0, 0, 0);
+				changed(trottle, 0, 0, 0, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_X: {
-				changed(trottle - 0.05F, 0, 0, 0, 0);
+				changed(trottle - 0.05F, 0, 0, 0, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_A: {
-				changed(trottle + 0.01F, roll, pitch, yaw, 0);
+				changed(trottle + 0.01F, roll, pitch, yaw, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_Z: {
-				changed(trottle - 0.01F, roll, pitch, yaw, 0);
+				changed(trottle - 0.01F, roll, pitch, yaw, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_Q: {
-				changed(trottle, roll, pitch, yaw - 0.01F, 0);
+				changed(trottle, roll, pitch, yaw - 0.01F, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_W: {
-				changed(trottle, roll, pitch, yaw + 0.01F, 0);
+				changed(trottle, roll, pitch, yaw + 0.01F, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_UP: {
-				changed(trottle, roll, pitch + 0.01F, yaw, 0);
+				changed(trottle, roll, pitch + 0.01F, yaw, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_DOWN: {
-				changed(trottle, roll, pitch - 0.01F, yaw, 0);
+				changed(trottle, roll, pitch - 0.01F, yaw, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_LEFT: {
-				changed(trottle, roll - 0.01F, pitch, yaw, 0);
+				changed(trottle, roll - 0.01F, pitch, yaw, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_RIGHT: {
-				changed(trottle, roll + 0.01F, pitch, yaw, 0);
+				changed(trottle, roll + 0.01F, pitch, yaw, 0, hold);
 				break;
 			}
 			case KeyEvent.VK_E: {
-				changed(trottle, 0, 0, 0, 1);
+				changed(trottle, 0, 0, 0, 1, hold);
 				break;
 			}
 			default:

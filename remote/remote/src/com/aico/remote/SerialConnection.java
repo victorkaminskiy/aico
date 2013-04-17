@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.Channels;
 import java.nio.channels.WritableByteChannel;
 
@@ -58,7 +59,7 @@ public final class SerialConnection implements Runnable {
 	private int flowControl = SerialPort.FLOWCONTROL_NONE;
 	private boolean dtr = false;
 	private DataListener dataListener = null;
-	private static boolean test = true;
+	private static boolean test = false;
 
 	private ByteBuffer byteBuffer = ByteBuffer.allocate(256);
 
@@ -106,6 +107,8 @@ public final class SerialConnection implements Runnable {
 				port.setSerialPortParams(bitrate, dataBits, stopBits, parity);
 				port.setFlowControlMode(flowControl);
 				port.setDTR(dtr);
+				inputStream = port.getInputStream();
+				writeChannel = Channels.newChannel(port.getOutputStream());
 			} else {
 				inputStream = new FileInputStream("test.bin");
 				writeChannel = Channels.newChannel(new FileOutputStream(
@@ -153,12 +156,12 @@ public final class SerialConnection implements Runnable {
 	@Override
 	public void run() {
 		while (state) {
+			byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
 			try {
 				byteBuffer.clear();
 				while (inputStream.read() != 0x2A)
 					;
 				final int length = inputStream.read();
-				System.out.println("-- "+length);
 				int index = 0;
 				while (index < length) {
 					final int len = inputStream.read(byteBuffer.array(),
@@ -169,6 +172,12 @@ public final class SerialConnection implements Runnable {
 					}
 				}
 				byteBuffer.flip();
+				final StringBuffer buffer=new StringBuffer();
+				for(int i=0;i<byteBuffer.limit();i++){
+					buffer.append(String.format("%02X ", byteBuffer.get()));
+				}
+				System.out.println(buffer.toString());
+				byteBuffer.rewind();
 				dataListener.dataReceived(byteBuffer);
 			} catch (IOException e) {
 				e.printStackTrace();
