@@ -1,0 +1,42 @@
+// -----------------------------------
+// This is code from original tutorial
+// It is working
+// -----------------------------------
+
+if (collisionDetected()) {
+	// Stop the robot and make it red
+	setTranslationalVelocity(0.0);
+	setRotationalVelocity(0);
+	setColor(new Color3f(1, 0, 0));
+} else {
+	setTranslationalVelocity(0.5);
+}
+
+// every 20 frames - sonar
+if (getCounter() % 20 == 0) {
+	// print each sonars measurement
+	for (int i = 0; i < sonars.getNumSensors(); i++) {
+		double range = sonars.getMeasurement(i);
+		double angle = sonars.getSensorAngle(i);
+		boolean hit = sonars.hasHit(i);
+		System.out.println("Sonar at angle " + angle
+				+ "measured range =" + range + " has hit something:"
+				+ hit);
+	}
+}
+
+// every 20 frames - bumper
+if (getCounter() % 20 == 0) {
+	// print each bumper state
+	for (int i = 0; i < bumpers.getNumSensors(); i++) {
+		double angle = bumpers.getSensorAngle(i);
+		boolean hit = bumpers.hasHit(i);
+		System.out.println("Bumpers at angle " + angle
+				+ " has hit something:" + hit);
+	}
+}
+
+// get camera image
+camera.copyVisionImage(cameraImage);
+// process image
+// ... use BufferedImage api
