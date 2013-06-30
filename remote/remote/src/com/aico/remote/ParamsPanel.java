@@ -33,6 +33,10 @@ public class ParamsPanel extends Box implements ChangeListener {
 	private JLabel anglex = new JLabel("0000");
 	private JLabel angley = new JLabel("0000");
 	private JLabel head = new JLabel("0000");
+	private JLabel alt = new JLabel("0000");
+	private JLabel sonarAlt = new JLabel("0000");
+	private JLabel holdAlt = new JLabel("0000");
+	private JLabel baroPid = new JLabel("0000");
 
 	/**
 	 * 
@@ -154,6 +158,30 @@ public class ParamsPanel extends Box implements ChangeListener {
 		box.add(Box.createHorizontalStrut(5));
 		box.add(head);
 		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("alt"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(alt);
+		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("sonar"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(sonarAlt);
+		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("HoldAlt"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(holdAlt);
+		add(box);
+		
+		box = Box.createHorizontalBox();
+		box.add(new JLabel("BaroPid"));
+		box.add(Box.createHorizontalStrut(5));
+		box.add(baroPid);
+		add(box);
 
 		ax.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		ay.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
@@ -179,6 +207,10 @@ public class ParamsPanel extends Box implements ChangeListener {
 		anglex.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		angley.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		head.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		alt.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		sonarAlt.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		holdAlt.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		baroPid.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 
 	}
 
@@ -224,6 +256,10 @@ public class ParamsPanel extends Box implements ChangeListener {
 		anglex.setText(String.valueOf(event.getAngx()/10));
 		angley.setText(String.valueOf(event.getAngy()/10));
 		head.setText(String.valueOf(event.getHead()));
+		alt.setText(String.valueOf(event.getAlt()));
+		sonarAlt.setText(String.valueOf(event.getSonar()));
+		holdAlt.setText(String.valueOf(event.getHoldAlt()));
+		baroPid.setText(String.valueOf(event.getBaroPid()));
 	}
 	public float radians(int ang){
 		return (float)(ang*Math.PI/180);

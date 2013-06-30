@@ -60,6 +60,7 @@ public final class SerialConnection implements Runnable {
 	private boolean dtr = false;
 	private DataListener dataListener = null;
 	private static boolean test = false;
+	private static final boolean log=false;
 
 	private ByteBuffer byteBuffer = ByteBuffer.allocate(256);
 
@@ -149,6 +150,14 @@ public final class SerialConnection implements Runnable {
 
 	public int write(ByteBuffer src) throws IOException {
 		int length = 0;
+		final StringBuffer buffer=new StringBuffer();
+		for(int i=0;i<src.limit();i++){
+			buffer.append(String.format("%02X ", src.get()));
+		}
+		if(log){
+			System.out.println("<< "+buffer.toString());
+		}
+		src.rewind();
 		length = writeChannel.write(src);
 		return length;
 	}
@@ -176,7 +185,9 @@ public final class SerialConnection implements Runnable {
 				for(int i=0;i<byteBuffer.limit();i++){
 					buffer.append(String.format("%02X ", byteBuffer.get()));
 				}
-				System.out.println(buffer.toString());
+				if(log){
+					System.out.println("<< "+buffer.toString());
+				}
 				byteBuffer.rewind();
 				dataListener.dataReceived(byteBuffer);
 			} catch (IOException e) {

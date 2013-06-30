@@ -14,13 +14,13 @@ import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 public class Remote implements Runnable {
-	final List<RemoteListener> listeners = new ArrayList<RemoteListener>();
 	Controller joystick;
 	Component roll = null;
 	Component trottle = null;
 	Component yaw = null;
 	Component pitch = null;
 	Component start = null;
+	private RemotePanel panel;
 
 	public Remote() {
 		Controller[] ca = ControllerEnvironment.getDefaultEnvironment()
@@ -74,9 +74,9 @@ public class Remote implements Runnable {
 			}
 		}
 	}
-
-	public void addRemoteListener(RemoteListener remoteListener) {
-		listeners.add(remoteListener);
+	
+	public void setRemotePanel(RemotePanel panel){
+		this.panel=panel;
 	}
 
 	@Override
@@ -136,15 +136,14 @@ public class Remote implements Runnable {
 					if (y > 0) {
 						y -= deadZone;
 					}
-					for (RemoteListener listener : listeners) {
 						try {
-							listener.changed(t, r / 2, p / 2, y / 2,
-									start.getPollData(),false);
+							//panel.changed(t, r / 2, p / 2, y / 2,
+							//		start.getPollData(),false);
 
 						} catch (Exception e) {
 
 						}
-					}
+					
 				}
 
 				try {
@@ -167,8 +166,8 @@ public class Remote implements Runnable {
 		panel.setBorder(BorderFactory.createLineBorder(Color.black));
 		frame.setLayout(new BorderLayout());
 		frame.add(panel);
-		remote.addRemoteListener(panel);
-		frame.setBounds(100, 100, 300, 400);
+		remote.setRemotePanel(panel);
+		frame.setBounds(100, 100, 350, 600);
 		final Thread thread = new Thread(remote);
 		thread.start();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

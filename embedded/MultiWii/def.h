@@ -1291,8 +1291,8 @@
   #define SERVO_3_PINMODE            pinMode(46,OUTPUT);        // CAM TRIG
   #define SERVO_3_PIN_HIGH           PORTL |= 1<<3;
   #define SERVO_3_PIN_LOW            PORTL &= ~(1<<3);
-  #define SERVO_4_PINMODE            pinMode(11,OUTPUT);        // SERVO4 , use hardware PWM
-  #define SERVO_5_PINMODE            pinMode(12,OUTPUT);        // SERVO5 , use hardware PWM
+  //#define SERVO_4_PINMODE            pinMode(11,OUTPUT);        // SERVO4 , use hardware PWM
+  //#define SERVO_5_PINMODE            pinMode(12,OUTPUT);        // SERVO5 , use hardware PWM
 #endif
 
 #if defined(LADYBIRD)
@@ -1452,6 +1452,22 @@
   #undef INTERNAL_I2C_PULLUPS
 #endif
 
+#if defined(SONAR_GENERIC_ECHOPULSE)
+  //PORTC |= 1<<5;
+  //PORTC &= ~(1<<5);
+  #define SONAR_GEP_TriggerPin             12
+  #define SONAR_GEP_TriggerPin_PINMODE_OUT pinMode(SONAR_GEP_TriggerPin,OUTPUT);
+  #define SONAR_GEP_TriggerPin_PIN_HIGH    PORTB |= 1<<6;
+  #define SONAR_GEP_TriggerPin_PIN_LOW     PORTB &= ~(1<<6);
+  #define SONAR_GEP_EchoPin                11
+  #define SONAR_GEP_EchoPin_PINMODE_IN     pinMode(SONAR_GEP_EchoPin,INPUT);
+  #define SONAR_GEP_EchoPin_PCINT          PCINT5
+  #define SONAR_GEP_EchoPin_PCICR          PCICR |= (1<<PCIE0); // PCINT 0-7 belong to PCIE0
+  #define SONAR_GEP_EchoPin_PCMSK          PCMSK0 = (1<<SONAR_GEP_EchoPin_PCINT); // Mask Pin PCINT5 - all other PIns PCINT0-7 are not allowed to create interrupts!
+  #define SONAR_GEP_EchoPin_PCINT_vect     PCINT0_vect  // PCINT0-7 belog PCINT0_vect
+  #define SONAR_GEP_EchoPin_PIN            PINB  // PCINT0-7 belong to PINB
+#endif
+
 /**************************************************************************************/
 /***************              Sensor Type definitions              ********************/
 /**************************************************************************************/
@@ -1492,7 +1508,7 @@
   #define GPS 0
 #endif
 
-#if defined(SRF02) || defined(SRF08) || defined(SRF10) || defined(SRC235) || defined(TINY_GPS_SONAR) || defined(U020)
+#if defined(SRF02) || defined(SRF08) || defined(SRF10) || defined(SRC235) || defined(TINY_GPS_SONAR) || defined(SONAR_GENERIC_ECHOPULSE)
   #define SONAR 1
 #else
   #define SONAR 0

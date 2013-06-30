@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Communicator implements RemoteListener, DataListener, Runnable {
+public class Communicator implements DataListener, Runnable {
 	private static final int TROT_MIDDLE_VALUE = 1500;
 	private static final int MIDDLE_VALUE = 1500;
 	private static final int ROLL_MIDDLE_VALUE = 1500;
@@ -20,11 +20,14 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 	private Copter copter;
 	private ByteBuffer changeBuffer = ByteBuffer.allocate(256);
 
-	private float trottle;
-	private float roll;
-	private float pitch;
-	private float yaw;
-	private boolean hold;
+	private float trottle = -1F;
+	private float roll = 0;
+	private float pitch = 0;
+	private float yaw = 0;
+	private int rc5 = 1000;
+	private int rc6 = 0;
+	private int rc7 = 0;
+	private int rc8 = 0;
 	private Semaphore received = new Semaphore(0);
 
 	public Communicator(Copter copter) {
@@ -51,6 +54,48 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 		t.start();
 	}
 
+	public float checkRanges(float value, float min, float max) {
+		if (value < min) {
+			value = min;
+		}
+		if (value > max) {
+			value = max;
+		}
+		return value;
+	}
+
+	public void setTrottle(float trottle) {
+		this.trottle = checkRanges(trottle, -1F, 1F);
+	}
+
+	public void setRoll(float roll) {
+		this.roll = checkRanges(roll, -1F, 1F);
+	}
+
+	public void setPitch(float pitch) {
+		this.pitch = checkRanges(pitch, -1F, 1F);
+	}
+
+	public void setYaw(float yaw) {
+		this.yaw = checkRanges(yaw, -1F, 1F);
+	}
+
+	public float getTrottle() {
+		return trottle;
+	}
+
+	public float getRoll() {
+		return roll;
+	}
+
+	public float getPitch() {
+		return pitch;
+	}
+
+	public float getYaw() {
+		return yaw;
+	}
+
 	protected void notifyMovement() {
 		for (ChangeListener listener : listeners) {
 			listener.changed(copter);
@@ -61,14 +106,13 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 		try {
 			connection.write(byteBuffer);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void dataReceived(ByteBuffer recvBuffer) {
 		final int id = recvBuffer.get();
-		System.out.println("recv " + id);
 		switch (id) {
 		case 2:
 			System.out.println("Connection established");
@@ -89,15 +133,15 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 				copter.setR2(recvBuffer.getShort());
 				copter.setR3(recvBuffer.getShort());
 				copter.setR4(recvBuffer.getShort());
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
-				recvBuffer.getShort();
+				copter.setBaroPid(recvBuffer.getShort());
+				copter.setAlt(recvBuffer.getShort());
+				copter.setSonar(recvBuffer.getShort());
+				copter.setHoldAlt(recvBuffer.getShort());
 
-				copter.setThrottle(recvBuffer.getShort());
 				copter.setRoll(recvBuffer.getShort());
 				copter.setPitch(recvBuffer.getShort());
 				copter.setYaw(recvBuffer.getShort());
+				copter.setThrottle(recvBuffer.getShort());
 				copter.setRC5(recvBuffer.getShort());
 				copter.setRC6(recvBuffer.getShort());
 				copter.setRC7(recvBuffer.getShort());
@@ -114,23 +158,15 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 		received.release();
 	}
 
-	@Override
-	public void changed(float trottle, float roll, float pitch, float yaw,
-			float start, boolean hold) {
-		if ((start == 1F) && (startPrev != start)) {
-			start();
-		} else {
-			setValues(trottle, roll, pitch, yaw, hold);
+	private int getRcValue(int val) {
+		switch (val) {
+		case 0:
+			return 1000;
+		case 1:
+			return 1500;
+		default:
+			return 1800;
 		}
-	}
-
-	public void setValues(float trottle, float roll, float pitch, float yaw,
-			boolean hold) {
-		this.trottle = trottle;
-		this.roll = roll;
-		this.pitch = pitch;
-		this.yaw = yaw;
-		this.hold = hold;
 	}
 
 	public void flush() {
@@ -138,44 +174,223 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 		changeBuffer.put((byte) 0x2A);
 		changeBuffer.put((byte) 17);
 		changeBuffer.put((byte) 0x3);
-		changeBuffer.putShort(((short) (TROT_MIDDLE_VALUE + RANGE * trottle)));
 		changeBuffer.putShort(((short) (ROLL_MIDDLE_VALUE + RANGE * roll)));
 		changeBuffer.putShort(((short) (MIDDLE_VALUE + RANGE * pitch)));
 		changeBuffer.putShort(((short) (MIDDLE_VALUE + RANGE * yaw)));
-		if (hold) {
-			changeBuffer.putShort((short) 1500);
+		changeBuffer.putShort(((short) (TROT_MIDDLE_VALUE + RANGE * trottle)));
+		if (rc5 == 1000) {
+			changeBuffer
+					.putShort(((short) (TROT_MIDDLE_VALUE + RANGE * trottle)));
 		} else {
-			changeBuffer.putShort((short) 1000);
+			changeBuffer.putShort((short) rc5);
 		}
-		changeBuffer.putShort((short) 1000);
-		changeBuffer.putShort((short) 1000);
-		changeBuffer.putShort((short) 1000);
+		changeBuffer.putShort((short) getRcValue(rc6));
+		changeBuffer.putShort((short) getRcValue(rc7));
+		changeBuffer.putShort((short) rc8);
 		changeBuffer.flip();
 		sendBuffer(changeBuffer);
 	}
 
-	public void start() {
-		if (this.started) {
-			setValues(-1, 0, 0, -0.95F, false);
-			try {
-				Thread.sleep(600);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void drop() {
+		setTrottle(-1);
+		setPitch(0);
+		setRoll(0);
+		setYaw(0);
+		setRc5(1000);
+		setRc6(0);
+		setRc7(0);
+		setRc8(1000);
+	}
+
+	public void setHoldAlt(int height) {
+		setRc8(1000 + height);
+	}
+
+	public int getHoldAlt() {
+		return getRc8() - 1000;
+	}
+
+	private boolean run = false;
+
+	public void flight(final int height) {
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				final int ALT_MIS = 2;
+				int currentAlt = copter.getAlt();
+				final int startAlt = currentAlt;
+				arm();
+				setTrottle(-0.3F);
+				int stableIndex = 0;
+				boolean onAlt = false;
+				boolean onFlight = false;
+				System.out.println("Alt dest " + currentAlt + " "
+						+ (startAlt + height));
+				while (!onAlt) {
+					final int newAlt = copter.getAlt();
+					if (newAlt < currentAlt + ALT_MIS) {
+						stableIndex++;
+					} else {
+						currentAlt = newAlt;
+						stableIndex = 0;
+						onFlight = true;
+					}
+					if (stableIndex != 0) {
+						if (!onFlight) {
+							setTrottle(getTrottle() + 0.003F);
+						} else {
+							setTrottle(getTrottle() + 0.0005F);
+						}
+					}
+					System.out.println(copter.getTrottle()+" "+currentAlt+" "+onFlight+" "+stableIndex+" ["+copter.getR1()+" "+copter.getR2()+" "+copter.getR3()+" "+copter.getR4()+"]");
+					if (currentAlt > startAlt + height - 4 * ALT_MIS) {
+						onAlt = true;
+						setTrottle(getTrottle() - 0.07F);
+						setHoldAlt(startAlt + height);
+						System.out.println("Alt OK ");
+					}
+					if (!onAlt) {
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				System.out.println("On Air " + copter.getAlt());
+
+				try {
+					Thread.sleep(250);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//System.out.println(copter.getAlt());
+				//try {
+				//	Thread.sleep(4500);
+				//} catch (InterruptedException e) {
+				//	// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				//}
+				//System.out.println("Landing " + copter.getAlt());
+				//landing();
+				run = false;
 			}
-			setValues(-1, 0, 0, 0, false);
-			started = false;
-		} else {
-			setValues(-1, 0, 0, 0.95F, false);
-			try {
-				Thread.sleep(600);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			setValues(-1, 0, 0, 0, false);
-			started = true;
+		});
+		if (!run) {
+			t.start();
+			run = true;
 		}
+	}
+
+	public void landing() {
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println("Landing " + copter.getAlt());
+				final int ALT_MIS = 3;
+				setHoldAlt(0);
+				boolean landed = false;
+				int currentAlt = copter.getAlt();
+				int stableIndex = 0;
+				while (!landed) {
+					final int newAlt = copter.getAlt();
+					if ((newAlt > currentAlt - ALT_MIS)
+							&& (newAlt < currentAlt + ALT_MIS)) {
+						stableIndex++;
+					} else {
+						currentAlt = newAlt;
+						stableIndex = 0;
+					}
+					landed = stableIndex > 40;
+					if (stableIndex > 8) {
+						setTrottle(getTrottle() - 0.02F);
+					} else {
+						setTrottle(getTrottle() - 0.015F);
+					}
+					System.out.println("In landing " + getTrottle() + " "
+							+ copter.getAlt());
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				disarm();
+				System.out.println("Landed");
+			}
+		});
+		t.start();
+	}
+
+	public void disarm() {
+		drop();
+		setYaw(-0.95F);
+		try {
+			Thread.sleep(600);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		drop();
+		started = false;
+	}
+
+	public int getRc5() {
+		return rc5;
+	}
+
+	public void setRc5(int rc5) {
+		if (rc5 < 1000)
+			rc5 = 1000;
+		this.rc5 = rc5;
+	}
+
+	public int getRc6() {
+		return rc6;
+	}
+
+	public void setRc6(int rc6) {
+		this.rc6 = rc6;
+	}
+
+	public int getRc7() {
+		return rc7;
+	}
+
+	public void setRc7(int rc7) {
+		this.rc7 = rc7;
+	}
+
+	public int getRc8() {
+		return rc8;
+	}
+
+	public void setRc8(int rc8) {
+		if (rc8 < 1000)
+			rc8 = 1000;
+		this.rc8 = rc8;
+	}
+
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void arm() {
+		drop();
+		setYaw(0.95F);
+		try {
+			Thread.sleep(600);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		drop();
+		started = true;
 	}
 
 	public void addChangeListener(ChangeListener listener) {
@@ -186,10 +401,10 @@ public class Communicator implements RemoteListener, DataListener, Runnable {
 	public void run() {
 		while (true) {
 			try {
-				received.tryAcquire(50, TimeUnit.MILLISECONDS);
+				received.tryAcquire(150, TimeUnit.MILLISECONDS);
 				received.drainPermits();
 				flush();
-				Thread.sleep(50);
+				Thread.sleep(100);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

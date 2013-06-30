@@ -25,16 +25,12 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-public class RemotePanel extends JPanel implements RemoteListener {
+public class RemotePanel extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -977197592284133514L;
 	private int SIZE = 200;
-	private float trottle = -1F;
-	private float roll = 0;
-	private float pitch = 0;
-	private float yaw = 0;
 	private JComboBox comboBox;
 	private JProgressBar trottleProgr;
 	private JProgressBar yawProgr;
@@ -83,8 +79,8 @@ public class RemotePanel extends JPanel implements RemoteListener {
 				g.drawLine(5, SIZE / 2 + 5, SIZE + 10, SIZE / 2 + 5);
 				g.drawLine(5 + SIZE / 2, 5, 5 + SIZE / 2, SIZE + 10);
 				g.setColor(Color.blue);
-				g.fillOval((int) (5 + SIZE / 2 + roll * SIZE / 2) - 2,
-						(int) (5 + SIZE / 2 + pitch * SIZE / 2) - 2, 4, 4);
+				g.fillOval((int) (5 + SIZE / 2 + com.getRoll() * SIZE / 2) - 2,
+						(int) (5 + SIZE / 2 + com.getPitch() * SIZE / 2) - 2, 4, 4);
 			}
 		};
 		add(axisPanel);
@@ -124,26 +120,35 @@ public class RemotePanel extends JPanel implements RemoteListener {
 		});
 		b.add(slider);
 
-		JButton button = new JButton("Start");
+		final JButton button = new JButton("Arm");
 		button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changed(trottle, 0, 0, 0, 1, false);
+				com.arm();
 			}
 		});
 		b.add(button);
+		final JButton disarm = new JButton("Disarm");
+		disarm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				com.disarm();
+			}
+		});
+		b.add(disarm);
 		final JToggleButton button1 = new JToggleButton("Hold");
 		button1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (button1.isSelected()) {
-					hold=true;
-				} else {
-					hold=false;
+				//System.out.println(button1.isSelected());
+				if(button1.isSelected()){
+					com.setRc5(1);
+				}else{
+					com.setRc5(0);
 				}
-				changed(trottle, roll, pitch, yaw, 0, hold);
 			}
 		});
 		b.add(button1);
@@ -164,83 +169,134 @@ public class RemotePanel extends JPanel implements RemoteListener {
 			}
 		}
 	}
-
-	public float checkRanges(float value, float min, float max) {
-		if (value < min) {
-			value = min;
-		}
-		if (value > max) {
-			value = max;
-		}
-		return value;
-	}
-
-	@Override
-	public void changed(float trottle, float roll, float pitch, float yaw,
-			float start, boolean hold) {
-		trottle = checkRanges(trottle, -1F, 1F);
-		roll = checkRanges(roll, -1F, 1F);
-		pitch = checkRanges(pitch, -1F, 1F);
-		yaw = checkRanges(yaw, -1F, 1F);
-		com.changed(trottle, roll, pitch, yaw, start, hold);
-		this.trottle = trottle;
-		this.roll = roll;
-		this.pitch = pitch;
-		this.yaw = yaw;
-		axisPanel.repaint();
-		// slider.setValue((int)((trottle+1)*100F));
+	
+	private void setTrottle(float trottle){
+		com.setTrottle(trottle);
 		trottleProgr.setValue((int) ((trottle + 1) * 100));
-		yawProgr.setValue((int) ((yaw + 1) * 50));
+	}
+	
+	private void setYaw(float yaw){
+		com.setYaw(yaw);
+		yawProgr.setValue((int) ((com.getYaw() + 1) * 50));
+	}
+	
+	private void setRoll(float roll){
+		com.setRoll(roll);
+		axisPanel.repaint();
+	}
+	
+	private void setPitch(float pitch){
+		com.setPitch(pitch);
+		axisPanel.repaint();
+	}
+	
+	private void center(){
+		setPitch(0);
+		setYaw(0);
+		setRoll(0);
 	}
 
 	private class MyDispatcher implements KeyEventDispatcher {
 
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent e) {
-			System.out.println("key code= "+e.getKeyCode()+" "+e.getKeyChar());
+			//System.out.println("key code= "+e.getKeyCode()+" "+e.getKeyChar());
 			switch (e.getKeyCode()) {
+			case KeyEvent.VK_U: {
+				com.setTrottle(1F);
+				com.setPitch(-1F);
+				com.setYaw(-1F);
+				com.setRoll(0F);
+				break;
+			}
+			case KeyEvent.VK_J: {
+				com.setTrottle(-1F);
+				com.setPitch(-1F);
+				com.setYaw(-1F);
+				com.setRoll(0F);
+				break;
+			}
+			case KeyEvent.VK_M: {
+				com.setTrottle(1F);
+				com.setPitch(-1F);
+				com.setYaw(1F);
+				com.setRoll(0F);
+				break;
+			}
+			case KeyEvent.VK_S: {
+				center();
+				break;
+			}
+			case KeyEvent.VK_O: {
+				com.setHoldAlt(com.getHoldAlt()+5);
+				break;
+			}
+			case KeyEvent.VK_L: {
+				com.setHoldAlt(com.getHoldAlt()-5);
+				break;
+			}
 			case KeyEvent.VK_D: {
-				changed(trottle, 0, 0, 0, 0, hold);
+				com.flight(18);
+				break;
+			}
+			case KeyEvent.VK_C: {
+				com.landing();
 				break;
 			}
 			case KeyEvent.VK_X: {
-				changed(trottle - 0.05F, 0, 0, 0, 0, hold);
+				setTrottle(com.getTrottle() - 0.05F);
 				break;
 			}
 			case KeyEvent.VK_A: {
-				changed(trottle + 0.01F, roll, pitch, yaw, 0, hold);
+				setTrottle(com.getTrottle() + 0.01F);
 				break;
 			}
 			case KeyEvent.VK_Z: {
-				changed(trottle - 0.01F, roll, pitch, yaw, 0, hold);
+				setTrottle(com.getTrottle() - 0.01F);
 				break;
 			}
 			case KeyEvent.VK_Q: {
-				changed(trottle, roll, pitch, yaw - 0.01F, 0, hold);
+				setYaw(com.getYaw()-0.001F);
 				break;
 			}
 			case KeyEvent.VK_W: {
-				changed(trottle, roll, pitch, yaw + 0.01F, 0, hold);
+				setYaw(com.getYaw()+0.001F);
 				break;
 			}
 			case KeyEvent.VK_UP: {
-				changed(trottle, roll, pitch + 0.01F, yaw, 0, hold);
+				setPitch(com.getPitch()+0.001F);
 				break;
 			}
 			case KeyEvent.VK_DOWN: {
-				changed(trottle, roll, pitch - 0.01F, yaw, 0, hold);
+				setPitch(com.getPitch()-0.001F);
 				break;
 			}
 			case KeyEvent.VK_LEFT: {
-				changed(trottle, roll - 0.01F, pitch, yaw, 0, hold);
+				setRoll(com.getRoll()-0.001F);
 				break;
 			}
 			case KeyEvent.VK_RIGHT: {
-				changed(trottle, roll + 0.01F, pitch, yaw, 0, hold);
+				setRoll(com.getRoll()+0.001F);
+				break;
+			}
+			case KeyEvent.VK_R: {
+				com.arm();
 				break;
 			}
 			case KeyEvent.VK_E: {
-				changed(trottle, 0, 0, 0, 1, hold);
+				com.disarm();
+				break;
+			}
+			case KeyEvent.VK_T: {
+				com.setRc5(1000);
+				break;
+			}
+			case KeyEvent.VK_G: {
+				com.setRc5(com.getRc5()+10);
+				break;
+			}
+			case KeyEvent.VK_B: {
+				com.setRc5(com.getRc5()-10);
 				break;
 			}
 			default:

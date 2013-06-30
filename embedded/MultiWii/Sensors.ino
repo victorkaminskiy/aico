@@ -1699,19 +1699,42 @@ void Sonar_update() {
       tinygps_query();
     }
 }
-#elif defined(U020)
-#include <NewPing.h>
-#define TRIGGER_PIN  33  // Arduino pin tied to trigger pin on the ultrasonic sensor.
-#define ECHO_PIN     32  // Arduino pin tied to echo pin on the ultrasonic sensor.
-#define MAX_DISTANCE 100 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
+#elif defined(SONAR_GENERIC_ECHOPULSE) 
 
-//NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
-inline void Sonar_init() {}
-void Sonar_update() {
-  //pinMode(TRIGGER_PIN, OUTPUT); 
-  //sonarAlt=sonar.ping_cm();
-  //EstAlt=sonarAlt;
-  //EstAlt=(sonarAlt*8+EstAlt*0)>>3;
+volatile unsigned long SONAR_GEP_startTime = 0;
+volatile unsigned long SONAR_GEP_echoTime = 0;
+volatile static int32_t  tempSonarAlt=0;
+
+void Sonar_init()
+{
+  SONAR_GEP_EchoPin_PCICR;
+  SONAR_GEP_EchoPin_PCMSK;
+  SONAR_GEP_EchoPin_PINMODE_IN;
+  SONAR_GEP_TriggerPin_PINMODE_OUT;
+  Sonar_update();
+}
+
+ISR(SONAR_GEP_EchoPin_PCINT_vect) {
+  if (SONAR_GEP_EchoPin_PIN & (1<<SONAR_GEP_EchoPin_PCINT)) { 
+    SONAR_GEP_startTime = micros();
+  }
+  else {
+    SONAR_GEP_echoTime = micros() - SONAR_GEP_startTime;
+    if (SONAR_GEP_echoTime <= SONAR_GENERIC_MAX_RANGE*SONAR_GENERIC_SCALE)                                  
+      tempSonarAlt = SONAR_GEP_echoTime / SONAR_GENERIC_SCALE;
+    else
+      tempSonarAlt = -1;
+  }
+}
+
+void Sonar_update()
+{
+    sonarAlt=1+tempSonarAlt;
+    SONAR_GEP_TriggerPin_PIN_LOW;
+    delayMicroseconds(2);
+    SONAR_GEP_TriggerPin_PIN_HIGH;
+    delayMicroseconds(10);
+    SONAR_GEP_TriggerPin_PIN_LOW;
 }
 #else
 inline void Sonar_init() {}

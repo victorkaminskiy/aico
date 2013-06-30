@@ -205,11 +205,23 @@ void serialCom() {
 }
 #ifndef SUPPRESS_ALL_SERIAL_MSP
 void evaluateCommand() {
+  //blinkLED(2,20, 1);
+    
   switch(cmdMSP[CURRENTPORT]) {
    case MSP_SET_RAW_RC:
      for(uint8_t i=0;i<8;i++) {
        rcData[i] = read16();
      }
+     if(rcData[7]>1000){
+       AltHold=rcData[7]-1000;
+       f.BARO_MODE = 1;
+     }else{
+       f.BARO_MODE = 0;
+       errorAltitudeI = 0;
+       BaroPID=0;
+     }
+
+     initialThrottleHold=rcData[4];
      headSerialReply(0);
      break;
    #if GPS
@@ -286,7 +298,7 @@ void evaluateCommand() {
                    f.ANGLE_MODE<<BOXANGLE|
                    f.HORIZON_MODE<<BOXHORIZON|
                  #endif
-                 #if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+                 #if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
                    f.BARO_MODE<<BOXBARO|
                  #endif
                  #if MAG
@@ -345,9 +357,13 @@ void evaluateCommand() {
      break;
    case MSP_MOTOR:
      headSerialReply(16);
-     for(uint8_t i=0;i<8;i++) {
+     for(uint8_t i=0;i<4;i++) {//changed from 8
        serialize16( (i < NUMBER_MOTOR) ? motor[i] : 0 );
      }
+     serialize16(BaroPID);
+     serialize16(EstAlt);
+     serialize16(sonarAlt);
+     serialize16(AltHold);
      break;
    case MSP_RC:
      headSerialReply(RC_CHANS * 2);

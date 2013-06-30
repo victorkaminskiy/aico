@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1372622631 source:/home/vk/develop/aico/linux/serial/main.c
+	<arpa/inet.h>
+	<netinet/in.h>
+	<stdio.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<errno.h>
+
+1372623090 source:/home/vk/develop/aico/linux/serial/msp.c
+	"msp.h"
+	"uart.h"
+
+1372622857 /home/vk/develop/aico/linux/serial/msp.h
+	<stdint.h>
+
+1372623291 /home/vk/develop/aico/linux/serial/uart.h
+	<stdint.h>
+
+1372623207 source:/home/vk/develop/aico/linux/serial/multiwii.c
+	"multiwii.h"
+	"msp.h"
+
+1372623263 /home/vk/develop/aico/linux/serial/multiwii.h
+	<stdint.h>
+	<stdbool.h>
+

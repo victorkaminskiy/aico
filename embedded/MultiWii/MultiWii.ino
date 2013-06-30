@@ -62,7 +62,7 @@ enum box {
     BOXANGLE,
     BOXHORIZON,
   #endif
-  #if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+  #if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
     BOXBARO,
   #endif
   #ifdef VARIOMETER
@@ -114,7 +114,7 @@ const char boxnames[] PROGMEM = // names for dynamic generation of config GUI
     "ANGLE;"
     "HORIZON;"
   #endif
-  #if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+  #if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
     "BARO;"
   #endif
   #ifdef VARIOMETER
@@ -225,9 +225,12 @@ static uint8_t  vbat;                   // battery voltage in 0.1V steps
 static uint8_t  vbatMin = VBATNOMINAL;  // lowest battery voltage in 0.1V steps
 static uint8_t  rcOptions[CHECKBOXITEMS];
 static int32_t  BaroAlt,EstAlt,AltHold; // in cm
+static int32_t  BaroHome=0;
 static int16_t  BaroPID = 0;
 static int16_t  errorAltitudeI = 0;
 static int16_t  vario = 0;              // variometer in cm/s
+static int16_t initialThrottleHold=1400;
+static uint8_t  sonar_update_delay=0;
 
 #if defined(ARMEDTIMEWARNING)
   static uint32_t  ArmedTimeWarningMicroSeconds = 0;
@@ -690,10 +693,11 @@ void annexCode() { // this code is excetuted at each loop and won't interfere wi
 }
 
 void setup() {
-  //rcData[0]=1000;
-  //rcData[1]=1500;
-  //rcData[2]=1500;
-  //rcData[3]=1500;
+  //set Alt Hold to AUX1 >1300 <1700
+  //conf.activate[BOXBARO]=2;
+  //set Acc calibrate to AUX2 >1300 <1700
+  
+  
   #if !defined(GPS_PROMINI)
     SerialOpen(0,SERIAL0_COM_SPEED);
     #if defined(PROMICRO)
@@ -880,7 +884,6 @@ void loop () {
   static int16_t errorGyroI[3] = {0,0,0};
   static int16_t errorAngleI[2] = {0,0};
   static uint32_t rcTime  = 0;
-  static int16_t initialThrottleHold;
   static uint32_t timestamp_fixated = 0;
 
   #if defined(SPEKTRUM)
@@ -1077,7 +1080,7 @@ void loop () {
       if (f.ANGLE_MODE || f.HORIZON_MODE) {STABLEPIN_ON;} else {STABLEPIN_OFF;}
     #endif
 
-    #if BARO
+    #if (BARO||SONAR)
       #if (!defined(SUPPRESS_BARO_ALTHOLD))
         if (rcOptions[BOXBARO]) {
             if (!f.BARO_MODE) {
@@ -1191,7 +1194,7 @@ void loop () {
         #endif
       case 2:
         taskOrder++;
-        #if BARO
+        #if (BARO||SONAR)
           if (getEstimatedAltitude() !=0) break;
         #endif    
       case 3:
@@ -1257,7 +1260,7 @@ void loop () {
     } else magHold = heading;
   #endif
 
-  #if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+  #if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
     if (f.BARO_MODE) {
       static uint8_t isAltHoldChanged = 0;
       #if defined(ALTHOLD_FAST_THROTTLE_CHANGE)

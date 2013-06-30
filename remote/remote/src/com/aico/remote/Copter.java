@@ -25,14 +25,48 @@ public class Copter {
 	private short angx;
 	private short angy;
 	private short head;
+	private short alt;
 	private short rc5;
 	private short rc6;
 	private short rc7;
 	private short rc8;
+	private short sonar;
+	private short holdAlt;
 	private boolean log=true;
+	private short baroPid;
 	
 
 	public Copter() {
+	}
+	
+	
+	
+	public short getHoldAlt() {
+		return holdAlt;
+	}
+
+
+
+	public void setHoldAlt(short holdAlt) {
+		this.holdAlt = holdAlt;
+	}
+
+
+
+	public void setSonar(short sonar){
+		this.sonar=sonar;
+	}
+	
+	public short getSonar(){
+		return sonar;
+	}
+	
+	public void setAlt(short alt){
+		this.alt=alt;
+	}
+	
+	public short getAlt(){
+		return alt;
 	}
 
 	public void setLastRefreshTime(long time) {
@@ -202,6 +236,10 @@ public class Copter {
 		return rc5;
 	}
 	
+	public short getRC8() {
+		return rc8;
+	}
+	
 	public void setRC6(short rc) {
 		if(log){
 			System.out.println("rc6= "+rc);
@@ -293,6 +331,18 @@ public class Copter {
 
 	public short getYaw() {
 		return yaw;
+	}
+
+
+
+	public short getBaroPid() {
+		return baroPid;
+	}
+
+
+
+	public void setBaroPid(short baroPid) {
+		this.baroPid=baroPid;
 	}
 
 }

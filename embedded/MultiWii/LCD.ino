@@ -802,7 +802,7 @@ const char PROGMEM lcd_param_text07 [] = "Pitch    D";
 const char PROGMEM lcd_param_text08 [] = "Yaw      P";
 const char PROGMEM lcd_param_text09 [] = "Yaw      I";
 const char PROGMEM lcd_param_text10 [] = "Yaw      D";
-#if  BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+#if  (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
 const char PROGMEM lcd_param_text11 [] = "Alt      P";
 const char PROGMEM lcd_param_text12 [] = "Alt      I";
 const char PROGMEM lcd_param_text13 [] = "Alt      D";
@@ -943,7 +943,7 @@ PROGMEM const void * const lcd_param_ptr_table [] = {
   &lcd_param_text08, &conf.P8[YAW], &__P,
   &lcd_param_text09, &conf.I8[YAW], &__I,
   &lcd_param_text10, &conf.D8[YAW], &__D,
-#if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+#if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
   &lcd_param_text11, &conf.P8[PIDALT], &__P,
   &lcd_param_text12, &conf.I8[PIDALT], &__I,
   &lcd_param_text13, &conf.D8[PIDALT], &__D,
@@ -987,7 +987,7 @@ PROGMEM const void * const lcd_param_ptr_table [] = {
       &lcd_param_text42, &conf.activate[BOXHORIZON], &__AUX4,
     #endif
   #endif
-  #if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+  #if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
     &lcd_param_text43, &conf.activate[BOXBARO], &__AUX1,
     &lcd_param_text43, &conf.activate[BOXBARO], &__AUX2,
     #ifndef SUPPRESS_LCD_CONF_AUX34
@@ -1600,7 +1600,7 @@ static char checkboxitemNames[][4] = {
     #if ACC
       "Ang","Hor",
     #endif
-    #if BARO && (!defined(SUPPRESS_BARO_ALTHOLD))
+    #if (BARO||SONAR) && (!defined(SUPPRESS_BARO_ALTHOLD))
       "Bar",
     #endif
     #ifdef VARIOMETER
@@ -1943,7 +1943,7 @@ void lcd_telemetry() {
           }
           break;
         case 6:// height
-          #if BARO
+          #if (BARO||SONAR)
              {
                int16_t h = BaroAlt / 100;
                LCDprint('A'); lcdprint_int16(h); LCDprint('m');
@@ -2229,7 +2229,7 @@ void lcd_telemetry() {
       //Reset logvalues
       cycleTimeMax = 0;
       cycleTimeMin = 65535;
-      #if BARO
+      #if (BARO||SONAR)
         #if defined(LOG_VALUES)
           BAROaltMax = 0;
         #endif

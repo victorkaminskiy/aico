@@ -24,14 +24,14 @@
 /*****************                                                                 ***************/
 /****************  SECTION  1 - BASIC SETUP                                                *******/
 /*****************                                                                 ***************/
-/*************************************************************************************************/
+/****************************************************************************S*********************/
 
   /**************************    The type of multicopter    ****************************/
     //#define GIMBAL
     //#define BI
     //#define TRI
-    //#define QUADP
-    #define QUADX
+    #define QUADP
+    //#define QUADX
     //#define Y4
     //#define Y6
     //#define HEX6
@@ -55,11 +55,11 @@
     //#define MINTHROTTLE 1120 // for Super Simple ESCs 10A
     //#define MINTHROTTLE 1064 // special ESC (simonk)
     //#define MINTHROTTLE 1050 // for brushed ESCs like ladybird
-    #define MINTHROTTLE 1150 // (*)
+    #define MINTHROTTLE 1100 // (*)
 
   /****************************    Motor maxthrottle    *******************************/
     /* this is the maximum value for the ESCs at full power, this value can be increased up to 2000 */
-    #define MAXTHROTTLE 1850
+    #define MAXTHROTTLE 1950
 
   /****************************    Mincommand          *******************************/
     /* this is the value for the ESCs when they are not armed
@@ -179,7 +179,13 @@
       //#define SRF08
       //#define SRF10
       //#define SRF23
-      #define U020
+      
+      /* Generic sonar: hc-sr04, srf04, dyp-me007, all generic sonar with echo/pulse pin 
+         default pulse is PH6/12, echo is PB4/11
+      */
+      #define SONAR_GENERIC_ECHOPULSE 
+      #define SONAR_GENERIC_SCALE 58 //scale for ranging conversion (hcsr04 is 58)
+      #define SONAR_GENERIC_MAX_RANGE 500 //cm (could be more)
 
       /* ADC accelerometer */ // for 5DOF from sparkfun, uses analog PIN A1/A2/A3
       //#define ADCACC
@@ -608,8 +614,21 @@
 
     /* adopt the flasher pattern for landing light LEDs */
     //#define LANDING_LIGHTS_ADOPT_LED_FLASHER_PATTERN
+    
+    
+    /************************* Sonar alt hold / precision / ground collision keeper *******/
+    #define SONAR_MAX_HOLD 400 //cm, kind of error delimiter, for now to avoid rocket climbing, only usefull if no baro
 
-  /*************************    INFLIGHT ACC Calibration    *****************************/
+    //if using baro + sonar       
+    #define SONAR_BARO_FUSION_LC 50 //cm, baro/sonar readings fusion, low cut, below = full sonar
+    #define SONAR_BARO_FUSION_HC 400 //cm, baro/sonar readings fusion, high cut, above = full baro
+    #define SONAR_BARO_FUSION_RATIO 0.0 //0.0-1.0,  baro/sonar readings fusion, amount of each sensor value, 0 = proportionnel between LC and HC
+    #define SONAR_BARO_LPF_LC 0.9f 
+    #define SONAR_BARO_LPF_HC 0.9f
+    
+    
+
+    /*************************    INFLIGHT ACC Calibration    *****************************/
     /* This will activate the ACC-Inflight calibration if unchecked */
     //#define INFLIGHT_ACC_CALIBRATION
 
@@ -1024,6 +1043,7 @@
     #define ESC_CALIB_LOW  MINCOMMAND
     #define ESC_CALIB_HIGH 2000
     //#define ESC_CALIB_CANNOT_FLY  // uncomment to activate
+    //#define ESC_CALIB_CANNOT_FLY_TEST
 
   /****           internal frequencies                             ****/
     /* frequenies for rare cyclic actions in the main loop, depend on cycle time
