@@ -113,7 +113,7 @@ public class TakeOffLandTest extends JFrame{
 			public void keyPressed(KeyEvent e){
 				int key=e.getKeyCode();
 				int mod=e.getModifiersEx();
-				
+
 				shiftflag=false;
 				if((mod & InputEvent.SHIFT_DOWN_MASK)!=0){
 					shiftflag=true;
