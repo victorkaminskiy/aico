@@ -1,6 +1,7 @@
 package aico.core;
 
 import aico.gui.GuiWindow;
+import aico.helpers.Constants;
 import aico.vision.CheckWhite;
 import com.shigeodayo.ardrone.ARDrone;
 import com.shigeodayo.ardrone.navdata.*;
@@ -18,9 +19,10 @@ import java.util.Date;
  */
 public class DroneControl {
     private ARDrone ardrone;
+    private int batteryValue;
 
     public DroneControl() {
-        ardrone=new ARDrone("192.168.1.1");
+        ardrone = new ARDrone("192.168.1.1");
         System.out.println("Connect drone controller");
         ardrone.connect();
         System.out.println("Connect drone navdata");
@@ -30,7 +32,11 @@ public class DroneControl {
         System.out.println("Start drone");
         ardrone.start();
 
-        printLoggingData();
+        startMonitoringBattery();
+
+        if (Constants.PRINT_NAV_LOG) {
+            printLoggingData();
+        }
     }
 
     public ARDrone getArdrone() {
@@ -38,16 +44,29 @@ public class DroneControl {
     }
 
     public void initializeVideoFrame(final GuiWindow videoPanel, final CheckWhite vision) {
-        ardrone.addImageUpdateListener(new ImageListener(){
+        ardrone.addImageUpdateListener(new ImageListener() {
             @Override
             public void imageUpdated(BufferedImage image) {
-                if(videoPanel!=null){
+                if (videoPanel != null) {
                     vision.parseImage(image);
                     videoPanel.setImage(image);
                     videoPanel.repaint();
                 }
             }
         });
+    }
+
+    private void startMonitoringBattery() {
+        ardrone.addBatteryUpdateListener(new BatteryListener() {
+            @Override
+            public void batteryLevelChanged(int percentage) {
+                batteryValue = percentage;
+            }
+        });
+    }
+
+    public int getBatteryValue() {
+        return batteryValue;
     }
 
     public void useForwardCamera() {
@@ -58,12 +77,13 @@ public class DroneControl {
         ardrone.setVerticalCamera();
     }
 
+
     private void printLoggingData() {
         ardrone.addAttitudeUpdateListener(new AttitudeListener() {
             @Override
             public void attitudeUpdated(float pitch, float roll, float yaw, int altitude) {
                 System.out.println(new Date(System.currentTimeMillis()).toString() +
-                        ": pitch: "+pitch+", roll: "+roll+", yaw: "+yaw+", altitude: "+altitude);
+                        ": pitch: " + pitch + ", roll: " + roll + ", yaw: " + yaw + ", altitude: " + altitude);
             }
         });
 
@@ -71,7 +91,7 @@ public class DroneControl {
             @Override
             public void batteryLevelChanged(int percentage) {
                 System.out.println(new Date(System.currentTimeMillis()).toString() +
-                        ": battery: "+percentage+" %");
+                        ": battery: " + percentage + " %");
             }
         });
 
@@ -79,7 +99,7 @@ public class DroneControl {
             @Override
             public void stateChanged(DroneState state) {
                 System.out.println(new Date(System.currentTimeMillis()).toString() +
-                        ": state: "+state);
+                        ": state: " + state);
             }
         });
 
@@ -87,7 +107,7 @@ public class DroneControl {
             @Override
             public void velocityChanged(float vx, float vy, float vz) {
                 System.out.println(new Date(System.currentTimeMillis()).toString() +
-                        ": vx: "+vx+", vy: "+vy+", vz: "+vz);
+                        ": vx: " + vx + ", vy: " + vy + ", vz: " + vz);
             }
         });
     }

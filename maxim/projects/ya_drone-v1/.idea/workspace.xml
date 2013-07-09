@@ -4,14 +4,15 @@
     <list default="true" id="6d8ec57d-efd8-4d4e-b78a-676c27766e60" name="Default" comment="" />
     <ignored path="YADrone.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/AicoKT4.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373132572015" ignored="false" />
-    <file path="/FlightControl.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373129225861" ignored="false" />
+    <file path="/AicoKT4.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373396479094" ignored="false" />
+    <file path="/FlightControl.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373395416637" ignored="false" />
     <file path="/FlightControlArDrone.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373128482754" ignored="false" />
-    <file path="/Constants.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373128261906" ignored="false" />
+    <file path="/Constants.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373396843582" ignored="false" />
     <file path="/GuiWindow.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373130974878" ignored="false" />
     <file path="/InitializeDrone.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373132431010" ignored="false" />
-    <file path="/DroneControl.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373131505899" ignored="false" />
-    <file path="/CheckWhite.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373133375155" ignored="false" />
+    <file path="/DroneControl.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373396729527" ignored="false" />
+    <file path="/CheckWhite.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373396597260" ignored="false" />
+    <file path="/fragment.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373392234929" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,23 +73,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TakeOffLandTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/TakeOffLandTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="27" selection-start="3042" selection-end="3877" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2858#3034#0" expanded="true" />
-                <element signature="e#3029#3030#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AicoKT4.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AicoKT4.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/aico/kt4/AicoKT4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="50" selection-start="559" selection-end="559" vertical-scroll-proportion="0.0">
+            <state line="57" column="43" selection-start="1724" selection-end="1724" vertical-scroll-proportion="0.36438924">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,13 +84,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckWhite.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CheckWhite.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/aico/vision/CheckWhite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="65" selection-start="686" selection-end="686" vertical-scroll-proportion="0.454321">
+            <state line="47" column="46" selection-start="1177" selection-end="1177" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aico/helpers/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="56" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,15 +107,17 @@
       <file leaf-file-name="DroneControl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/aico/core/DroneControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="22" selection-start="1275" selection-end="1275" vertical-scroll-proportion="0.0">
+            <state line="34" column="33" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1112#1430#0" expanded="true" />
-                <element signature="e#1419#1420#0" expanded="true" />
-                <element signature="e#2073#2345#0" expanded="true" />
-                <element signature="e#2334#2335#0" expanded="true" />
-                <element signature="e#2388#2641#0" expanded="true" />
-                <element signature="e#2630#2631#0" expanded="true" />
+                <element signature="e#1263#1586#0" expanded="true" />
+                <element signature="e#1575#1576#0" expanded="true" />
+                <element signature="e#1681#1855#0" expanded="true" />
+                <element signature="e#1844#1845#0" expanded="true" />
+                <element signature="e#2584#2860#0" expanded="true" />
+                <element signature="e#2849#2850#0" expanded="true" />
+                <element signature="e#2903#3158#0" expanded="true" />
+                <element signature="e#3147#3148#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -147,15 +146,15 @@
       <list>
         <option value="$PROJECT_DIR$/src/aico_kt4/AicoKT4.java" />
         <option value="$PROJECT_DIR$/src/kt4/AicoKT4.java" />
-        <option value="$PROJECT_DIR$/src/aico/helpers/Constants.java" />
-        <option value="$PROJECT_DIR$/src/aico/flight/FlightControl.java" />
         <option value="$PROJECT_DIR$/src/aico/flight/FlightControlArDrone.java" />
         <option value="$PROJECT_DIR$/src/sample/TakeOffLandTest.java" />
         <option value="$PROJECT_DIR$/src/aico/gui/GuiWindow.java" />
         <option value="$PROJECT_DIR$/src/aico/core/InitializeDrone.java" />
-        <option value="$PROJECT_DIR$/src/aico/core/DroneControl.java" />
+        <option value="$PROJECT_DIR$/src/aico/flight/FlightControl.java" />
         <option value="$PROJECT_DIR$/src/aico/kt4/AicoKT4.java" />
+        <option value="$PROJECT_DIR$/src/aico/core/DroneControl.java" />
         <option value="$PROJECT_DIR$/src/aico/vision/CheckWhite.java" />
+        <option value="$PROJECT_DIR$/src/aico/helpers/Constants.java" />
       </list>
     </option>
   </component>
@@ -239,92 +238,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.shigeodayo.ardrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.shigeodayo.ardrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="video" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.shigeodayo.ardrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.shigeodayo.ardrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YADrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.shigeodayo.ardrone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="command" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -660,23 +573,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39972144" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29108635" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286908" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32729805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24967825" sideWeight="0.60027856" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24967825" sideWeight="0.7089136" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286908" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="92" y="92" width="1416" height="676" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -751,13 +664,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/Move3DTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="72" selection-start="913" selection-end="913" vertical-scroll-proportion="-3.4956648">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shigeodayo/ardrone/command/CommandManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="207" column="16" selection-start="5637" selection-end="5637" vertical-scroll-proportion="0.3328424">
@@ -786,27 +692,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/aico/helpers/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="42" selection-start="144" selection-end="144" vertical-scroll-proportion="0.22109826">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aico/flight/FlightControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="14" selection-start="40" selection-end="40" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aico/flight/FlightControlArDrone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="3" selection-start="169" selection-end="169" vertical-scroll-proportion="0.22109826">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shigeodayo/ardrone/navdata/BatteryListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="17" selection-start="258" selection-end="258" vertical-scroll-proportion="0.098265894">
@@ -821,14 +706,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/TakeOffLandTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/shigeodayo/ardrone/navdata/NavDataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="27" selection-start="3042" selection-end="3877" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2858#3034#0" expanded="true" />
-            <element signature="e#3029#3030#0" expanded="true" />
-          </folding>
+        <state line="80" column="61" selection-start="3602" selection-end="3602" vertical-scroll-proportion="0.12345679">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0_45/src.zip!/java/awt/Component.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5382" column="29" selection-start="194007" selection-end="194007" vertical-scroll-proportion="0.33264887">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aico/flight/FlightControlArDrone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="16" selection-start="461" selection-end="461" vertical-scroll-proportion="-1.0944558">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -841,40 +736,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/TakeOffLandTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="16" selection-start="4181" selection-end="4257" vertical-scroll-proportion="0.4228972">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aico/flight/FlightControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="36" selection-start="1009" selection-end="1009" vertical-scroll-proportion="0.82009345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/aico/core/DroneControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="22" selection-start="1275" selection-end="1275" vertical-scroll-proportion="0.0">
+        <state line="34" column="33" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1112#1430#0" expanded="true" />
-            <element signature="e#1419#1420#0" expanded="true" />
-            <element signature="e#2073#2345#0" expanded="true" />
-            <element signature="e#2334#2335#0" expanded="true" />
-            <element signature="e#2388#2641#0" expanded="true" />
-            <element signature="e#2630#2631#0" expanded="true" />
+            <element signature="e#1263#1586#0" expanded="true" />
+            <element signature="e#1575#1576#0" expanded="true" />
+            <element signature="e#1681#1855#0" expanded="true" />
+            <element signature="e#1844#1845#0" expanded="true" />
+            <element signature="e#2584#2860#0" expanded="true" />
+            <element signature="e#2849#2850#0" expanded="true" />
+            <element signature="e#2903#3158#0" expanded="true" />
+            <element signature="e#3147#3148#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aico/kt4/AicoKT4.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="50" selection-start="559" selection-end="559" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shigeodayo/ardrone/navdata/NavDataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="61" selection-start="3602" selection-end="3602" vertical-scroll-proportion="0.12345679">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aico/vision/CheckWhite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="65" selection-start="686" selection-end="686" vertical-scroll-proportion="0.454321">
+        <state line="47" column="46" selection-start="1177" selection-end="1177" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aico/helpers/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="56" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aico/kt4/AicoKT4.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="43" selection-start="1724" selection-end="1724" vertical-scroll-proportion="0.36438924">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
