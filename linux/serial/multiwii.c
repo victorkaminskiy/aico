@@ -4,6 +4,8 @@ multi wii implementation
 /***************************************************
 Includes
 ***************************************************/
+#include <sys/time.h>
+#include <unistd.h>
 #include "multiwii.h"
 #include "msp.h"
 
@@ -28,6 +30,7 @@ Static variables
 static Callback_t callback;
 static uint8_t    *dataBuffer;
 static uint8_t    offset;
+static struct timeval start;
 
 static MultiWiiReadingState_t state;
 /***************************************************
@@ -71,12 +74,23 @@ brief Starts reading data from multi wii
 ***************************************************/
 void multiWiiStartTransmission(uint8_t *data, uint8_t length)
 {
-  if (STATE_IDLE != state)
-    return;
+  if (STATE_IDLE != state){
+      struct timeval end;
+      gettimeofday(&end, NULL);
 
+      long mseconds  = (end.tv_sec  - start.tv_sec)*1000+(end.tv_usec - start.tv_usec)/1000;
+      if(mseconds>100){
+        delayTimerFired();
+        gettimeofday(&start, NULL);
+      }
+      return;
+  }
+  //printf("Start transmission\n");
   memcpy(dataBuffer, data, length);
   offset = 0;
   state  = STATE_RAW_RC_WRITING;
+  //Watchdog
+  gettimeofday(&start, NULL);
 
   mspWriteRawRc(dataBuffer, mspCallback);
 }
@@ -86,6 +100,7 @@ brief Callback function for MSP transmission
 ***************************************************/
 static void mspCallback(void)
 {
+  //printf("State: %d\n",state);
   switch(state)
   {
     case STATE_RAW_RC_WRITING:
@@ -121,8 +136,11 @@ brief Delay timer has fired
 ***************************************************/
 static void delayTimerFired(void)
 {
-  state = STATE_RAW_IMU_READING;
-    mspReadRawImu(dataBuffer, mspCallback);
+  printf("Delayed timer fired\n");
+  state = STATE_IDLE;
+  dropState();
+//  state = STATE_RAW_IMU_READING;
+//  mspReadRawImu(dataBuffer, mspCallback);
 }
 
 

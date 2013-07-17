@@ -25,6 +25,8 @@ Macros
 /***************************************************
 Prototypes
 ***************************************************/
+
+void dropState();
 /***************************************************
 brief Reads msp raw IMU
 
@@ -78,7 +80,7 @@ brief Reads data from UART
 
 param[in] length - amount of bytes
 ***************************************************/
-void mspReadResponse(uint16_t length);
+void mspReadResponse();
 
 #endif // _MSP_H
 

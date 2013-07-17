@@ -58,7 +58,9 @@ static Callback_t  callback;
 static MSP_State_t mspState;
 static uint8_t     bytesLeft;
 static uint8_t     bytesRead;
+static uint8_t     bytesToCopy;
 static uint8_t     uartTxBuffer[sizeof(MSP_DataFrame_t)];
+static uint8_t     uartTmpBuffer[100];
 static uint8_t     *uartRxBuffer;
 
 /***************************************************
@@ -170,7 +172,7 @@ void mspWriteRawRc(uint8_t *buffer, void(*cb)(void))
 
   mspState = MSP_STATE_IDLE;
 
-  initializeTransmission(cb, 6, buffer);
+  initializeTransmission(cb, 0, buffer);
   sendDataToUart(uartTxBuffer, sizeof(MSP_NoDataFrame_t) + MSP_SET_RAW_RC_SIZE);
 }
 
@@ -179,23 +181,38 @@ brief Reads data from UART
 
 param[in] length - amount of bytes
 ***************************************************/
-void mspReadResponse(uint16_t length)
+void mspReadResponse()
 {
-  int16_t readBytes = readDataFromUart(uartRxBuffer + bytesRead, length);
+  int16_t readBytes = readDataFromUart(&uartTmpBuffer[bytesRead], bytesLeft);
 
   if (-1 == readBytes)
     return;
+  if(mspState==MSP_STATE_WAITING_FOR_RESPONSE){
+      bytesLeft -= readBytes;
+      bytesRead += readBytes;
 
-  bytesLeft -= readBytes;
-  bytesRead += readBytes;
+      //printf("Bytes left: %d\n",bytesLeft);
 
-  if (!bytesLeft)
-  {
-    mspState = MSP_STATE_IDLE;
-    if (callback)
-      callback();
+      if (!bytesLeft)
+      {
+        memcpy(uartRxBuffer,uartTmpBuffer+MSP_CMD_HEADER_SIZE,bytesToCopy);
+//        printf("Read %d: ", uartRxBuffer);
+//        for (int i = 0; i < bytesToCopy; i++)
+//        {
+//            printf("%02X ", uartRxBuffer[i]);
+//        }
+//        printf("\n");
+        mspState = MSP_STATE_IDLE;
+        if (callback)
+          callback();
+      }
   }
 }
+
+void dropState(){
+    mspState = MSP_STATE_IDLE;
+}
+
 
 /***************************************************
 brief Fills msp frame
@@ -223,10 +240,11 @@ param[in] buffer - pointer tooutput buffer
 static void initializeTransmission(void(*cb)(void), uint8_t size, uint8_t *buffer)
 {
   callback  = cb;
-  mspState  = MSP_STATE_WAITING_FOR_RESPONSE;
-  bytesLeft = size;
+  bytesLeft = size+MSP_CMD_HEADER_SIZE+MSP_CMD_FOOTER_SIZE;
   uartRxBuffer = buffer;
   bytesRead = 0;
+  bytesToCopy = size;//-MSP_CMD_HEADER_SIZE-MSP_CMD_FOOTER_SIZE;
+  mspState  = MSP_STATE_WAITING_FOR_RESPONSE;
 }
 
 

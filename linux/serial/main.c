@@ -4,13 +4,14 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <errno.h>
+#include <pthread.h>
 
 
 #define BUFLEN 100
 #define PORT 9930
 
 
-#define UART "/dev/ttyS0"
+#define UART "/dev/ttyUSB0"
 
 #define FALSE 0
 #define TRUE 1
@@ -26,17 +27,42 @@ void diep(char *s)
     exit(1);
 }
 
-void sendDataBack(){
+void sendDataBack()
+{
     if (sendto(s, multiwiiBuf, BUFLEN, 0, &si_other, slen)==-1)
-        {
-            diep("sendto()");
-        }
+    {
+        diep("sendto()");
+    }
+    printf("Sent: ");
+    for (int i = 0; i < 20; i++)
+    {
+        printf("%02X ", (uint8_t)multiwiiBuf[i]);
+    }
+    printf("\n");
+ //   printf("data sent\n");
+
 }
 
-
-int main(void)
+void *receive(void *ptr)
 {
-    initUart(UART);
+
+
+    while(1){
+        mspReadResponse();
+    }
+
+
+    return NULL;
+
+}
+
+int main(int argc, char *argv[])
+{
+    if(argc>1){
+        initUart(argv[1]);
+    }else{
+        initUart(UART);
+    }
     char buf[BUFLEN];
 
     if ((s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP))==-1)
@@ -54,6 +80,14 @@ int main(void)
     }
 
     multiWiiInit(multiwiiBuf,sendDataBack);
+    //Start thread for UART
+    pthread_t receive_thread;
+
+    if(pthread_create(&receive_thread, NULL, receive, NULL)) {
+
+        diep("Error creating thread");
+    }
+
     int len=0;
     while (1)
     {
@@ -61,6 +95,7 @@ int main(void)
         {
             diep("recvfrom()");
         }
+//        printf("data received\n");
 
         multiWiiStartTransmission(buf,len);
 

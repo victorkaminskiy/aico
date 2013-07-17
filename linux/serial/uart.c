@@ -30,6 +30,7 @@ int setInterfaceAttribs(int fd, int speed, int parity)
     tty.c_lflag = 0;                // no signaling chars, no echo,
     // no canonical processing
     tty.c_oflag = 0;                // no remapping, no delays
+    tty.c_cflag &= ~ICANON;
     tty.c_cc[VMIN]  = 0;            // read doesn't block
     tty.c_cc[VTIME] = 5;            // 0.5 seconds read timeout
 
@@ -78,15 +79,30 @@ void initUart(char *portname)
     }
 
     setInterfaceAttribs (fd, BAUDRATE, 0);  // set speed to 115,200 bps, 8n1 (no parity)
-    setBlocking (fd, 0);                // set no blocking
+    setBlocking (fd, 1);                // set blocking
 }
 
 void sendDataToUart(uint8_t *buffer, int16_t size)
 {
+    printf("Write: ");
+    for (int i = 0; i < size; i++)
+    {
+        printf("%02X ", buffer[i]);
+    }
+    printf("\n");
     write (fd, buffer, size);
+    usleep(50000);
 }
 
 int16_t readDataFromUart(uint8_t *buffer, int16_t size)
 {
-    return read (fd, buffer, size);
+//    printf("Reading...\n");
+    int len=read (fd, buffer, size);
+//    printf("Read %d: ", len);
+//    for (int i = 0; i < len; i++)
+//    {
+//        printf("%02X ", buffer[i]);
+//    }
+//    printf("\n");
+    return len;
 }

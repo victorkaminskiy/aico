@@ -1,0 +1,482 @@
+Start transmission
+Bytes left: 6
+Write: 24 4D 3C 10 C8 DC 05 DC 05 DC 05 F2 03 F2 03 E8 03 E8 03 00 00 11 
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+
+Write: 24 4D 3C 00 66 66 
+Bytes left: 23
+Bytes left: 22
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 68 68 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 69 69 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 6C 6C 
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 
+Sent: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+data sent
+Start transmission
+Bytes left: 6
+Write: 24 4D 3C 10 C8 DC 05 DC 05 DC 05 F2 03 F2 03 E8 03 E8 03 00 00 11 
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+
+Write: 24 4D 3C 00 66 66 
+Bytes left: 23
+Bytes left: 22
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 68 68 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 69 69 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 6C 6C 
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 
+Sent: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+data sent
+Start transmission
+Write: Bytes left: 6
+24 4D 3C 10 C8 DC 05 DC 05 DC 05 F2 03 F2 03 E8 03 E8 03 00 00 11 
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+
+Write: 24 4D 3C 00 66 66 
+Bytes left: 23
+Bytes left: 22
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 68 68 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 69 69 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 6C 6C 
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 
+Sent: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+data sent
+Start transmission
+Bytes left: 6
+Write: 24 4D 3C 10 C8 DC 05 DC 05 DC 05 F2 03 F2 03 E8 03 E8 03 00 00 11 
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+
+Write: 24 4D 3C 00 66 66 
+Bytes left: 23
+Bytes left: 22
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 68 68 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 69 69 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 6C 6C 
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 
+Sent: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+data sent
+Start transmission
+Bytes left: 6
+Write: 24 4D 3C 10 C8 DC 05 DC 05 DC 05 F2 03 F2 03 E8 03 E8 03 00 00 11 
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+
+Write: 24 4D 3C 00 66 66 
+Bytes left: 22
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 68 68 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 11
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes left: 5
+Bytes left: 4
+Bytes left: 3
+Bytes left: 2
+Bytes left: 1
+Bytes left: 0
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Write: 24 4D 3C 00 69 69 
+Bytes left: 21
+Bytes left: 20
+Bytes left: 19
+Bytes left: 18
+Bytes left: 17
+Bytes left: 16
+Bytes left: 15
+Bytes left: 14
+Bytes left: 13
+Bytes left: 12
+Bytes left: 10
+Bytes left: 9
+Bytes left: 8
+Bytes left: 7
+Bytes left: 6
+Bytes le
