@@ -25,7 +25,7 @@ public class CheckWhite {
 
     public void parseImage(BufferedImage image) {
         if (isThereWhite(image)) {
-            System.out.println("TARGET DETECTED!");
+            //System.out.println("TARGET DETECTED!");
             targetFound = true;
         }
     }
@@ -44,10 +44,9 @@ public class CheckWhite {
 
         Graphics gr = image.getGraphics();
 
-        /// Draw battery
+        // Draw battery
         gr.setColor(new Color(138, 242, 255));
         gr.fillRect(0, 0, (int) (drone.getBatteryValue() / 100.0 * w), 3);
-        ///
 
         int totalNumberOfWhitePixels = 0;
 
