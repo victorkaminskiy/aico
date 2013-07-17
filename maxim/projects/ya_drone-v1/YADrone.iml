@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/lib/core.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/xuggle-xuggler-5.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/slf4j-api-1.7.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/slf4j-jdk14-1.7.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/eventbus.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/j-ogg-oggd.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/j-ogg-vorbisd.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jbullet.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jinput.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-android.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-blender.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-bullet-natives-android.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-bullet-natives.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-bullet.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-core.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-desktop.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-effects.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-jbullet.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-jogg.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-lwjgl-natives.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-lwjgl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-networking.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-niftygui.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-plugins.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/jME3-terrain.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/launch4j.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/lwjgl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/nifty-default-controls-javadoc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/nifty-default-controls.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/nifty-javadoc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/nifty-style-black.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/nifty.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/proguard.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/retrace.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/stack-alloc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/vecmath.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/xmlpull-xpp3.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jmonkey/xstream.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jfreechart-1.0.13.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jcommon-1.0.16.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library name="core.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/core.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xuggle-xuggler-5.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/xuggle-xuggler-5.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-api-1.7.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/slf4j-api-1.7.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-jdk14-1.7.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/slf4j-jdk14-1.7.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="eventbus.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/eventbus.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="j-ogg-oggd.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/j-ogg-oggd.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="j-ogg-vorbisd.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/j-ogg-vorbisd.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jbullet.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jbullet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jinput.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jinput.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-android.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-android.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-blender.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-blender.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-bullet-natives-android.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-bullet-natives-android.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-bullet-natives.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-bullet-natives.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-bullet.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-bullet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-core.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-core.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://C:/Program Files (x86)/jmonkeyplatform/java/sources" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-desktop.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-desktop.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-effects.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-effects.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-jbullet.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-jbullet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-jogg.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-jogg.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-lwjgl-natives.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-lwjgl-natives.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-lwjgl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-lwjgl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-networking.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-networking.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-niftygui.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-niftygui.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-plugins.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-plugins.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jME3-terrain.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/jME3-terrain.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="launch4j.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/launch4j.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lwjgl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/lwjgl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="nifty-default-controls-javadoc.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/nifty-default-controls-javadoc.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="nifty-default-controls.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/nifty-default-controls.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="nifty-javadoc.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/nifty-javadoc.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="nifty-style-black.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/nifty-style-black.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="nifty.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/nifty.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="proguard.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/proguard.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="retrace.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/retrace.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="stack-alloc.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/stack-alloc.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="vecmath.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/vecmath.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xmlpull-xpp3.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/xmlpull-xpp3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xstream.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jmonkey/xstream.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jfreechart-1.0.13.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jfreechart-1.0.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jcommon-1.0.16.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jcommon-1.0.16.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+
