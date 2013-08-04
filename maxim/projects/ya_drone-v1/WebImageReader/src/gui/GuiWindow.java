@@ -28,7 +28,7 @@ public class GuiWindow extends JFrame {
         pane.add(imagePanel, BorderLayout.CENTER);
 
         this.setTitle("Web Video Presenter");
-        this.setSize(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+        this.setSize(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT + 50);
         this.setVisible(true);
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

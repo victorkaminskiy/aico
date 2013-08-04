@@ -2,6 +2,7 @@ package core;
 
 import gui.GuiWindow;
 import helpers.Constants;
+import vision.CheckWhite;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,13 +20,16 @@ import java.net.URL;
 public class WebImageReader {
     public static void main(String[] args) {
         GuiWindow gui = new GuiWindow();
+        CheckWhite vision = new CheckWhite();
+
         String urlFromForm = JOptionPane.showInputDialog(
                 gui,
                 "Enter custom JPEG image URL. Press Cancel to use default value.",
                 "Enter image URL",
                 JOptionPane.QUESTION_MESSAGE);
-        if (urlFromForm == null || urlFromForm.isEmpty()) urlFromForm = Constants.IMAGE_URL;
-
+        if (urlFromForm == null || urlFromForm.isEmpty()) {
+            urlFromForm = Constants.IMAGE_URL;
+        }
         gui.setUrlLabel(urlFromForm);
 
         long totalNumberOfFrames = 0;
@@ -37,7 +41,9 @@ public class WebImageReader {
                 URL url = new URL(Constants.IMAGE_URL);
                 BufferedImage image = ImageIO.read(url);
                 gui.setImage(image);
+                vision.parseImage(image);
                 gui.repaint();
+
                 totalNumberOfFrames++;
                 long frameOverallTime = System.currentTimeMillis() - frameGetTime;
                 double framesPerSecond = 1000.0 / frameOverallTime;

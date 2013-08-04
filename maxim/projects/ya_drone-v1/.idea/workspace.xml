@@ -7,13 +7,13 @@
     <file path="/AicoKT4.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1374085226103" ignored="false" />
     <file path="/FlightControl.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373395416637" ignored="false" />
     <file path="/FlightControlArDrone.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373128482754" ignored="false" />
-    <file path="/Constants.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375630972811" ignored="false" />
-    <file path="/GuiWindow.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375641403030" ignored="false" />
+    <file path="/Constants.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375642228789" ignored="false" />
+    <file path="/GuiWindow.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375643111419" ignored="false" />
     <file path="/InitializeDrone.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373132431010" ignored="false" />
     <file path="/DroneControl.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373396729527" ignored="false" />
     <file path="/CheckWhite.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1373396597260" ignored="false" />
-    <file path="/fragment.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375621802804" ignored="false" />
-    <file path="/WebImageReader.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375641626849" ignored="false" />
+    <file path="/fragment.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375642162919" ignored="false" />
+    <file path="/WebImageReader.java" changelist="6d8ec57d-efd8-4d4e-b78a-676c27766e60" time="1375642437648" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,10 +74,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="WebImageReader.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="WebImageReader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebImageReader/src/core/WebImageReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="20" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.3873874">
+            <state line="49" column="113" selection-start="1635" selection-end="1635" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,17 +88,19 @@
       <file leaf-file-name="GuiWindow.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebImageReader/src/gui/GuiWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="16" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.0">
+            <state line="30" column="71" selection-start="822" selection-end="822" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.6.0_45/src.zip!/javax/swing/JPanel.java">
+      <file leaf-file-name="CheckWhite.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebImageReader/src/vision/CheckWhite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="97" selection-start="1629" selection-end="1629" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="48" column="140" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.8040541">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -106,7 +108,7 @@
       <file leaf-file-name="Constants.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebImageReader/src/helpers/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="36" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
+            <state line="18" column="68" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -131,11 +133,12 @@
         <option value="$PROJECT_DIR$/src/aico/flight/FlightControl.java" />
         <option value="$PROJECT_DIR$/src/aico/core/DroneControl.java" />
         <option value="$PROJECT_DIR$/src/aico/kt4/AicoKT4.java" />
-        <option value="$PROJECT_DIR$/src/aico/vision/CheckWhite.java" />
         <option value="$PROJECT_DIR$/src/aico/helpers/Constants.java" />
         <option value="$PROJECT_DIR$/WebImageReader/src/helpers/Constants.java" />
-        <option value="$PROJECT_DIR$/WebImageReader/src/gui/GuiWindow.java" />
+        <option value="$PROJECT_DIR$/src/aico/vision/CheckWhite.java" />
         <option value="$PROJECT_DIR$/WebImageReader/src/core/WebImageReader.java" />
+        <option value="$PROJECT_DIR$/WebImageReader/src/gui/GuiWindow.java" />
+        <option value="$PROJECT_DIR$/WebImageReader/src/vision/CheckWhite.java" />
       </list>
     </option>
   </component>
@@ -224,6 +227,94 @@
               <option name="myItemId" value="YADrone" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aico" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aico" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebImageReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebImageReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vision" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebImageReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YADrone" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebImageReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -250,6 +341,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="vision" />
       <recent name="gui" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -458,7 +550,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -474,7 +566,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20656371" sideWeight="0.6545961" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20656371" sideWeight="0.6545961" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286908" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="92" y="92" width="1416" height="676" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -549,11 +641,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/shigeodayo/ardrone/navdata/NavDataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="61" selection-start="3602" selection-end="3602" vertical-scroll-proportion="0.12345679" />
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.6.0_45/src.zip!/java/awt/Component.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5382" column="29" selection-start="194007" selection-end="194007" vertical-scroll-proportion="0.33264887" />
@@ -580,12 +667,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aico/core/DroneControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="33" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aico/vision/CheckWhite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="14" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0" />
+        <state line="34" column="33" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aico/gui/GuiWindow.java">
@@ -597,12 +681,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aico/kt4/AicoKT4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="30" selection-start="1092" selection-end="1092" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aico/helpers/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="68" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0" />
+        <state line="37" column="30" selection-start="1092" selection-end="1092" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.6.0_45/src.zip!/javax/imageio/ImageIO.java">
@@ -619,30 +700,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebImageReader/src/helpers/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="36" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.6.0_45/src.zip!/javax/swing/JPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="97" selection-start="1629" selection-end="1629" vertical-scroll-proportion="0.0">
+        <state line="53" column="97" selection-start="1629" selection-end="1629" vertical-scroll-proportion="0.5630631">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebImageReader/src/gui/GuiWindow.java">
+    <entry file="file://$PROJECT_DIR$/src/aico/vision/CheckWhite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="16" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.0">
+        <state line="67" column="32" selection-start="1857" selection-end="1857" vertical-scroll-proportion="0.7702703">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aico/helpers/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="68" selection-start="391" selection-end="391" vertical-scroll-proportion="0.3445946">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebImageReader/src/helpers/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="68" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WebImageReader/src/core/WebImageReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="20" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.3873874">
+        <state line="49" column="113" selection-start="1635" selection-end="1635" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebImageReader/src/gui/GuiWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="71" selection-start="822" selection-end="822" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebImageReader/src/vision/CheckWhite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="140" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.8040541">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
