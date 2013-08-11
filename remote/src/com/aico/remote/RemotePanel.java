@@ -236,8 +236,12 @@ public class RemotePanel extends JPanel{
 				break;
 			}
 			case KeyEvent.VK_D: {
-				com.flight(18);
-				break;
+                if (Constants.USE_PID) {
+                    com.flightWithPid(18);
+                } else {
+                    com.flight(18);
+                }
+                break;
 			}
 			case KeyEvent.VK_C: {
 				com.landing();
