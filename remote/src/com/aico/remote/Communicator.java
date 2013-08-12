@@ -231,6 +231,7 @@ public class Communicator implements DataListener, Runnable {
                 arm();
                 setTrottle(-0.3F);
                 int stableIndex = 0;
+                int filteredAlt=currentAlt;
                 boolean onAlt = false;
                 boolean onFlight = false;
                 System.out.println("Alt dest " + currentAlt + " "
@@ -238,10 +239,13 @@ public class Communicator implements DataListener, Runnable {
                 //noinspection ConstantConditions
                 while (!onAlt) {
                     final int newAlt = copter.getAlt();
-                    if (newAlt < currentAlt + ALT_MIS) {
+                    if(Math.abs(newAlt-filteredAlt)<30){
+                        filteredAlt=newAlt;
+                    }
+                    if (filteredAlt < currentAlt + ALT_MIS) {
                         stableIndex++;
                     } else {
-                        currentAlt = newAlt;
+                        currentAlt = filteredAlt;
                         stableIndex = 0;
                         onFlight = true;
                     }
