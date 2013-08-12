@@ -80,7 +80,7 @@ public class PidRegulator {
 
         // Calculate the result effort
         double output = Kp * error + Ki * integral + Kd * derivative;
-        output = normalizeResult(output);
+        //output = normalizeResult(output);
         addToHistory(output);
 
         // Save history for debugging

@@ -250,7 +250,7 @@ public class Communicator implements DataListener, Runnable {
                             setTrottle(getTrottle() + 0.003F);
                         } else {
                             // Old variant: setTrottle(getTrottle() + 0.0005F);
-                            setTrottle((float) PidRegulator.INSTANCE.calculate(newAlt, startAlt + height));
+                            setTrottle(getTrottle() + (float) PidRegulator.INSTANCE.calculate(newAlt, startAlt + height));
                         }
                     }
                     System.out.println(copter.getTrottle()+" "+currentAlt+" "+onFlight+" "+stableIndex+" ["+copter.getR1()+" "+copter.getR2()+" "+copter.getR3()+" "+copter.getR4()+"]");
