@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class Communicator implements DataListener, Runnable {
 	private static final int TROT_MIDDLE_VALUE = 1500;
 	private static final int MIDDLE_VALUE = 1500;
@@ -15,7 +16,8 @@ public class Communicator implements DataListener, Runnable {
 
 	private Connection connection;
 	private boolean started = false;
-	private float startPrev = 0;
+	@SuppressWarnings("UnusedDeclaration")
+    private float startPrev = 0;
 	private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
 	private Copter copter;
 	private ByteBuffer changeBuffer = ByteBuffer.allocate(100);
@@ -35,7 +37,7 @@ public class Communicator implements DataListener, Runnable {
 		changeBuffer.order(ByteOrder.LITTLE_ENDIAN);
 	}
 
-	public void connect(String portName) {
+	public void connect(@SuppressWarnings("UnusedParameters") String portName) {
 		try {
 //			connection = new SerialConnection(portName);
 			//connection = new UdpConnection("192.168.0.101",9930);
@@ -216,6 +218,57 @@ public class Communicator implements DataListener, Runnable {
 
 	private boolean run = false;
 
+    public void flightWithPid(final int height) {
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                PidRegulator.INSTANCE.clear();
+
+                final int ALT_MIS = 2;
+                int currentAlt = copter.getAlt();
+                final int startAlt = currentAlt;
+                arm();
+                setTrottle(-0.3F);
+                int stableIndex = 0;
+                int filteredAlt=currentAlt;
+                boolean onAlt = false;
+                boolean onFlight = false;
+                System.out.println("Alt dest " + currentAlt + " "
+                        + (startAlt + height));
+                //noinspection ConstantConditions
+                while (!onAlt) {
+                    final int newAlt = copter.getAlt();
+                    if(Math.abs(newAlt-filteredAlt)<30){
+                        filteredAlt=newAlt;
+                    }
+                    if (filteredAlt < currentAlt + ALT_MIS) {
+                        stableIndex++;
+                    } else {
+                        currentAlt = filteredAlt;
+                        stableIndex = 0;
+                        onFlight = true;
+                    }
+                    if (stableIndex != 0) {
+                        if (!onFlight) {
+                            setTrottle(getTrottle() + 0.003F);
+                        } else {
+                            // Old variant: setTrottle(getTrottle() + 0.0005F);
+                            setTrottle(getTrottle() + (float) PidRegulator.INSTANCE.calculate(newAlt, startAlt + height));
+                        }
+                    }
+                    System.out.println(copter.getTrottle()+" "+currentAlt+" "+onFlight+" "+stableIndex+" ["+copter.getR1()+" "+copter.getR2()+" "+copter.getR3()+" "+copter.getR4()+"]");
+                }
+
+                // TODO This function doeas not call to setHoldAlt, first of all we need to test the PID.
+            }
+        });
+        if (!run) {
+            t.start();
+            run = true;
+        }
+    }
+
 	public void flight(final int height) {
 		Thread t = new Thread(new Runnable() {
 
@@ -258,7 +311,6 @@ public class Communicator implements DataListener, Runnable {
 						try {
 							Thread.sleep(50);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -268,14 +320,12 @@ public class Communicator implements DataListener, Runnable {
 				try {
 					Thread.sleep(250);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				//System.out.println(copter.getAlt());
 				//try {
 				//	Thread.sleep(4500);
 				//} catch (InterruptedException e) {
-				//	// TODO Auto-generated catch block
 				//	e.printStackTrace();
 				//}
 				//System.out.println("Landing " + copter.getAlt());
@@ -320,7 +370,6 @@ public class Communicator implements DataListener, Runnable {
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -337,7 +386,6 @@ public class Communicator implements DataListener, Runnable {
 		try {
 			Thread.sleep(600);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		drop();
@@ -354,7 +402,8 @@ public class Communicator implements DataListener, Runnable {
 		this.rc5 = rc5;
 	}
 
-	public int getRc6() {
+	@SuppressWarnings("UnusedDeclaration")
+    public int getRc6() {
 		return rc6;
 	}
 
@@ -362,7 +411,8 @@ public class Communicator implements DataListener, Runnable {
 		this.rc6 = rc6;
 	}
 
-	public int getRc7() {
+	@SuppressWarnings("UnusedDeclaration")
+    public int getRc7() {
 		return rc7;
 	}
 
@@ -380,7 +430,8 @@ public class Communicator implements DataListener, Runnable {
 		this.rc8 = rc8;
 	}
 
-	public boolean isStarted() {
+	@SuppressWarnings("UnusedDeclaration")
+    public boolean isStarted() {
 		return started;
 	}
 
@@ -390,7 +441,6 @@ public class Communicator implements DataListener, Runnable {
 		try {
 			Thread.sleep(600);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		drop();
@@ -403,7 +453,8 @@ public class Communicator implements DataListener, Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+        //noinspection InfiniteLoopStatement
+        while (true) {
 			try {
 				received.tryAcquire(150, TimeUnit.MILLISECONDS);
 				received.drainPermits();
